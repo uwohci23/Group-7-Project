@@ -7,9 +7,11 @@ class DeepSeaDuel extends React.Component {
 
     render() {
         return (
-            <div>
-                <PopupMenu name="Deep Sea Duel" />
-            </div>
+            // <div>
+            //     <PopupMenu name="Deep Sea Duel" />
+            // </div>
+
+            <iframe src="../WebBuild/index.html" style={{ width: "100vw", height: "100vh" }}></iframe>
         )
     }
 
