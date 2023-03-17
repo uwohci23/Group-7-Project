@@ -1,0 +1,28 @@
+#menu {
+    display: grid;
+    height: 100vh;
+}
+
+.btn-grid {
+    font-size: 30px;
+}
+
+#dsd-grid {
+    grid-column: 1;
+    grid-row: 1;
+}
+
+#gg-grid {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+#cb-grid {
+    grid-column: 1;
+    grid-row: 2;
+}
+
+#or-grid {
+    grid-column: 2;
+    grid-row: 2;
+}
