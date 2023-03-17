@@ -15,5 +15,4 @@ class MainMenu extends React.Component {
             </div>
         )
     }
-
 }

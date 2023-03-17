@@ -8,7 +8,7 @@ class GroupingAndGrazing extends React.Component {
     render() {
         return (
             <div>
-                GG
+                <PopupMenu name="Grouping and Grazing" />
             </div>
         )
     }

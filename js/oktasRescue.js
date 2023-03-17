@@ -8,9 +8,8 @@ class OktasRescue extends React.Component {
     render() {
         return (
             <div>
-                OR
+                <PopupMenu name="Okta's Rescue" />
             </div>
         )
     }
-
 }

@@ -8,7 +8,7 @@ class CoinBox extends React.Component {
     render() {
         return (
             <div>
-                CB
+                <PopupMenu name="Coin Box" />
             </div>
         )
     }

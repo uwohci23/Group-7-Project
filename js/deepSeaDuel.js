@@ -8,7 +8,7 @@ class DeepSeaDuel extends React.Component {
     render() {
         return (
             <div>
-                DSD
+                <PopupMenu name="Deep Sea Duel" />
             </div>
         )
     }
