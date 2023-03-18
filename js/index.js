@@ -30,7 +30,7 @@ class Root extends React.Component {
                 game = <DeepSeaDuel />
                 break;
             case 2:
-                game = <GroupingAndGrazing />
+                game = <GroupingAndGrazing onClick={this.changeGameNum} />
                 break;
             case 3:
                 game = <CoinBox />

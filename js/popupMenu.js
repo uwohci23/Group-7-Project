@@ -5,11 +5,17 @@ class PopupMenu extends React.Component {
         super(props)
     }
 
+    handleClosePopup() {
+        console.log("click")
+    }
+
     render() {
         return (
-            <button>
-                {this.props.name}
-            </button>
+          <div id="popup">
+            <button id="close-popup" onClick={this.handleClosePopup}>&#215;</button>
+            <button id="choice">Restart</button>
+            <button id="choice">Exit</button>
+          </div>
         )
     }
 
