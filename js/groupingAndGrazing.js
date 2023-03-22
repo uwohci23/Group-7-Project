@@ -3,14 +3,14 @@
 class GroupingAndGrazing extends React.Component {
     constructor(props) {
         super(props)
+        console.log("Cow props: ", props)
     }
 
     render() {
-        console.log(this.props.onClick)
+        console.log("Function:", this.props.onClick)
         return (
             <div>
-                <PopupMenu name="Grouping and Grazing" />
-                <button onClick={() => this.props.onClick(0)}>Exit</button>
+                <PopupMenu name="Grouping and Grazing" onClick={this.props.onClick} />
             </div>
         )
     }

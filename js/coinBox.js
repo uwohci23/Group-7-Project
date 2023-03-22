@@ -8,7 +8,7 @@ class CoinBox extends React.Component {
     render() {
         return (
             <div>
-                <PopupMenu name="Coin Box" />
+                <PopupMenu name="Coin Box" onClick={this.props.onClick} />
             </div>
         )
     }
