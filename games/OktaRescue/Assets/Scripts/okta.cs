@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class okta : MonoBehaviour
 {
-    public float speed = 100f;
+    public float speed = 200f;
+    public logicScript logic;
 
     private Color startcolor;
 	private SpriteRenderer oktaSR;
@@ -13,12 +14,14 @@ public class okta : MonoBehaviour
 
 	private bool isDown = false;
 
+
     // Start is called before the first frame update
     void Start()
     {
         oktaSR = GetComponent<SpriteRenderer>();
         targetPosition = new Vector3(8, -4, 0);
         startPos = transform.position;
+        logic = GameObject.FindGameObjectWithTag("Logic").GetComponent<logicScript>();
 
     }
 
@@ -54,13 +57,23 @@ public class okta : MonoBehaviour
     }
 
     // maybe in easy level let okta gets flushed
-    // change the object to yellow when mouse click okta and automatically move to a left position
-
+    // change the object to yellow when user click okta and okta will automatically move to a left position
+    // change okta tag to selected after user click one
 	void OnMouseDown() {
 		isDown = true;
         oktaSR.color = Color.yellow;
 	}
 
+    // void OnMouseDrag()
+    // {
+    //     oktaSR.material.color -= Color.yellow * Time.deltaTime;
+    // }
+
+    void OnTriggerEnter2D(Collider2D collision) {
+        if (collision.gameObject.tag == "Tube") {
+            logic.addNum(1);
+        }
+    }
 
         
 }
