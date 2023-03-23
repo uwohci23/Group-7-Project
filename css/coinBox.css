@@ -1,0 +1,58 @@
+.coin-box-container {
+    display: grid;
+    grid-auto-rows: auto;
+}
+
+.buttons-area {
+    grid-row-start: 1;
+    grid-column-start: span 2;
+    width: 100%;
+    height: 100%;
+    background-color: blue;
+}
+
+.from-floor-area {
+    grid-row-start: 2;
+    width: 100%;
+    height: 100%;
+    background-color: pink;
+}
+
+.from-bank-area {
+    grid-row-start: 3;
+    width: 100%;
+    height: 100%;
+    background-color: pink;
+}
+
+.bank-account {
+    grid-row-start: 4;
+    width: 100%;
+    height: 100%;
+    background-color: pink;
+}
+
+.floor {
+    grid-row-start: 2;
+    grid-row-end: 5;
+    grid-column-start: 2;
+    
+    width: 100%;
+    height: 40rem;
+    background-color: green;
+    position: relative;
+}
+
+.coin {
+    background: #000;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    cursor: pointer;
+}
+
+
+

@@ -27,16 +27,16 @@ class Root extends React.Component {
                 game = <MainMenu onClick={this.changeGameNum} />
                 break;
             case 1:
-                game = <DeepSeaDuel />
+                game = <DeepSeaDuel onClick={this.changeGameNum} />
                 break;
             case 2:
                 game = <GroupingAndGrazing onClick={this.changeGameNum} />
                 break;
             case 3:
-                game = <CoinBox />
+                game = <CoinBox onClick={this.changeGameNum} />
                 break;
             case 4:
-                game = <OktasRescue />
+                game = <OktasRescue onClick={this.changeGameNum} />
                 break;
         }
 
