@@ -23,7 +23,7 @@ public class timerScript : MonoBehaviour
         if (timerOn) {
             if (timerLeft > 0) {
                 timerLeft -= Time.deltaTime;
-                Timer.text = timerLeft.ToString("0.0");
+                Timer.text = timerLeft.ToString("0");
             }
             else {
                 Debug.Log("Time is up!");
