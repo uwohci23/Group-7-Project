@@ -1,0 +1,53 @@
+.popup-container {
+    display: grid;
+}
+
+.open-popup-container {
+    display: grid;
+}
+
+.open-popup {
+    justify-self: end;
+    height: 5rem;
+    width: 5rem;
+    text-align: center;
+    background: transparent;
+    border: none;
+    font-size: 5rem;
+    cursor: pointer;
+}
+
+.popup {
+    display: none;
+    border-radius: 1rem;
+    box-shadow: 10px 10px gray;
+}
+
+.close-popup {
+    height: 3rem;
+    width: 3rem;
+    margin-left: 12rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    background: transparent;
+    border: none;
+    font-size: 3rem;
+    cursor: pointer;
+}
+
+.choice {
+    font-family: "Comic Neue", "sans-serif";
+    font-size: 2rem;
+    
+    color:aliceblue;
+    height: 5rem;
+    width: 10rem;
+    margin: auto;
+    margin-bottom: 2rem;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border-radius: 1rem;
+    background-color: blueviolet;
+}
+

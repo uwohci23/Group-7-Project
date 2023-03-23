@@ -8,7 +8,7 @@ class OktasRescue extends React.Component {
     render() {
         return (
             <div>
-                <PopupMenu name="Okta's Rescue" />
+                <PopupMenu name="Okta's Rescue" onClick={this.props.onClick} />
             </div>
         )
     }

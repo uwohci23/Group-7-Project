@@ -6,9 +6,10 @@ class GroupingAndGrazing extends React.Component {
     }
 
     render() {
+        
         return (
             <div>
-                <PopupMenu name="Grouping and Grazing" />
+                <PopupMenu name="Grouping and Grazing" onClick={this.props.onClick} />
             </div>
         )
     }
