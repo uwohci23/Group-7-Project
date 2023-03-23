@@ -9,6 +9,8 @@ using TMPro;
 public class logicScript : MonoBehaviour
 {
 
+    //
+    static int totalSavedNum;
     public int savedNum;
     public int needToSaveNum;
     public TextMeshProUGUI savedNumText;
@@ -17,6 +19,7 @@ public class logicScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        totalSavedNum = 0;
         needToSaveNum = Random.Range(0, 10);
         needToSavedNumText.text = needToSaveNum.ToString();
     }
@@ -24,6 +27,7 @@ public class logicScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         
     }
 
@@ -31,6 +35,7 @@ public class logicScript : MonoBehaviour
     [ContextMenu("Increase Score")]
     public void addNum(int score) {
         savedNum = savedNum + score;
+        totalSavedNum = totalSavedNum + score;
         savedNumText.text = savedNum.ToString();
     }
 
