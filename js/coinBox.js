@@ -4,41 +4,18 @@ class CoinBox extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            coinSelected: false
+            coins: [1, 2, 3, 4]
         };
 
         this.handleCoinDragStart = this.handleCoinDragStart.bind(this);
-        this.handleCoinDragMove = this.handleCoinDragMove.bind(this);
-        this.handleCoinDragEnd = this.handleCoinDragEnd.bind(this);
     }
 
-    handleCoinDragStart() {
-        console.log("start");
-        this.setState({ coinSelected: true });
-    }
-
-    handleCoinDragMove(e) {
-        if (this.state.coinSelected) {
-            const coin = document.querySelector('.coin');
-            console.log(e.pageX, e.pageY)
-            coin.style.left = e.pageX +'px'; 
-            coin.style.top = e.pageY +'px';
-        }
-    }
-
-    handleCoinDragEnd() {
-        console.log("end");
-        this.setState({ coinSelected: false });
-    }
-
-    componentDidUpdate(props, state) {
-        if (this.state.coinSelected && !state.coinSelected) {
-            document.addEventListener('mousemove', this.onMouseMove)
-            document.addEventListener('mouseup', this.onMouseUp)
-        } else if (!this.state.coinSelected && state.coinSelected) {
-            document.removeEventListener('mousemove', this.onMouseMove)
-            document.removeEventListener('mouseup', this.onMouseUp)
-        }
+    handleCoinDragStart(e) {
+        console.log("Somehting", e.target.id)
+        // JQuery has an API for draggable DOM elements
+        $(function() {
+            $("#" + e.target.id).draggable();
+        });
     }
 
     render() {
@@ -63,11 +40,13 @@ class CoinBox extends React.Component {
                         
                     </div>
 
-                    <div className="floor">Floor
-                        <div id ="coin" className="coin" onMouseDown={this.handleCoinDragStart} onMouseMove={this.handleCoinDragMove} onMouseUp={this.handleCoinDragEnd}>
-
-                        </div>
-                    
+                    <div className="floor" >Floor
+                        {this.state.coins.map((coin, index) => {
+                            console.log("coin" + coin.toString());
+                            return (
+                                <div key={index} id={"coin" + coin.toString()} className="coin" onMouseDown={this.handleCoinDragStart}></div>
+                            );
+                        })}
                     </div>
                 </div>
             </div>
