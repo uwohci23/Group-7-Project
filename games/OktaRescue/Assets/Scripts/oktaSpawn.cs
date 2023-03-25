@@ -7,7 +7,7 @@ using UnityEngine;
 public class oktaSpawn : MonoBehaviour
 {
     public GameObject okta;
-    private int maxOkta = 20;
+    private int maxOkta = 3;
     private List<GameObject> oktaList;
     private IDictionary<float, float> posDictionary = new Dictionary<float, float>();
 
@@ -24,11 +24,13 @@ public class oktaSpawn : MonoBehaviour
        	while(counter < maxOkta) {
             float oktaWidth = Random.Range(-width + 1, width - 3);
             float oktaHeight = Random.Range(-height, height - 1);
-            while (posDictionary.ContainsKey(oktaWidth) && oktaHeight == posDictionary[oktaWidth]) {
-                oktaWidth = Random.Range(-width + 1, width - 3);
-                oktaHeight = Random.Range(-height, height - 1);
-            }
-            posDictionary.Add(oktaWidth, oktaHeight);
+
+            // while (posDictionary.ContainsKey(oktaWidth) && oktaHeight == posDictionary[oktaWidth]) {
+            //     oktaWidth = Random.Range(-width + 1, width - 3);
+            //     oktaHeight = Random.Range(-height, height - 1);
+            // }
+
+            // posDictionary.Add(oktaWidth, oktaHeight);
 
             Vector3 pos = new Vector3(oktaWidth, oktaHeight, 0f);
             okta = Instantiate(okta, pos, transform.rotation);

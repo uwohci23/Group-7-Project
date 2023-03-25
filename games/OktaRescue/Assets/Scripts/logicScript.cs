@@ -35,7 +35,12 @@ public class logicScript : MonoBehaviour
     [ContextMenu("Increase Score")]
     public void addNum(int score) {
         savedNum = savedNum + score;
-        totalSavedNum = totalSavedNum + score;
+        // totalSavedNum = totalSavedNum + score;
+        savedNumText.text = savedNum.ToString();
+    }
+
+    public void subtractNum(int score) {
+        savedNum = savedNum - score;
         savedNumText.text = savedNum.ToString();
     }
 
