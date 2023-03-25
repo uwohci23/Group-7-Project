@@ -19,7 +19,7 @@ public class okta : MonoBehaviour
     void Start()
     {
         oktaSR = GetComponent<SpriteRenderer>();
-        targetPosition = new Vector3(8, -4, 0);
+        targetPosition = new Vector3(8, -3, 0);
         startPos = transform.position;
         logic = GameObject.FindGameObjectWithTag("Logic").GetComponent<logicScript>();
 

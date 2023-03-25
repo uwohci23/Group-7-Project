@@ -9,6 +9,8 @@ public class oktaSpawn : MonoBehaviour
     public GameObject okta;
     private int maxOkta = 20;
     private List<GameObject> oktaList;
+    private IDictionary<float, float> posDictionary = new Dictionary<float, float>();
+
     // Start is called before the first frame update
     void Start()
     {
@@ -17,13 +19,25 @@ public class oktaSpawn : MonoBehaviour
 		float width = height * Camera.main.aspect;
         height -= 1f;
 		width -= 1f;
+        int counter = 0;
 
-       	for (int i = 0; i < maxOkta; i++) {
-            Debug.Log(i);
-            Vector3 pos = new Vector3(Random.Range(-width + 1, width - 3), Random.Range(-height, height - 1), 0f);
+       	while(counter < maxOkta) {
+            float oktaWidth = Random.Range(-width + 1, width - 3);
+            float oktaHeight = Random.Range(-height, height - 1);
+            while (posDictionary.ContainsKey(oktaWidth) && oktaHeight == posDictionary[oktaWidth]) {
+                oktaWidth = Random.Range(-width + 1, width - 3);
+                oktaHeight = Random.Range(-height, height - 1);
+            }
+            posDictionary.Add(oktaWidth, oktaHeight);
 
-            Instantiate(okta, pos, transform.rotation);
+            Vector3 pos = new Vector3(oktaWidth, oktaHeight, 0f);
+            okta = Instantiate(okta, pos, transform.rotation);
+            oktaList.Add(okta);
+
+            counter ++;
         }
+
+        
     }
 
     // Update is called once per frame

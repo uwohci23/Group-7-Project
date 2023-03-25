@@ -9,7 +9,7 @@ using TMPro;
 public class logicScript : MonoBehaviour
 {
 
-    //
+    // totalSavedNum need to be passed to the count scene
     static int totalSavedNum;
     public int savedNum;
     public int needToSaveNum;
