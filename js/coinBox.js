@@ -4,18 +4,49 @@ class CoinBox extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            coins: [1, 2, 3, 4]
+            max: 7,
+            min: 3,
+            coins: []
         };
-
-        this.handleCoinDragStart = this.handleCoinDragStart.bind(this);
     }
 
-    handleCoinDragStart(e) {
-        console.log("Somehting", e.target.id)
-        // JQuery has an API for draggable DOM elements
-        $(function() {
-            $("#" + e.target.id).draggable();
+    componentDidMount() {
+        // Generate random number of coins
+        const numCoins = Math.floor(Math.random() * (this.state.max - this.state.min) + this.state.min);
+
+        // store values in temp
+        let temp = [];
+        for (let i = 1; i < numCoins; i++) {
+            temp.push(i);
+        }
+
+        console.log("temp ", temp)
+
+        // set state of coins to temp
+        this.setState({
+            coins: this.state.coins.concat(temp)
         });
+
+
+        let floor = document.querySelector('#floor');
+        let width = floor.offsetWidth;
+        let height = floor.offsetHeight;
+
+        for (let id of temp) {
+            console.log("#" + "coin" + id);
+
+            let coin = document.getElementById('coin' + id);
+            let randWidth = Math.floor(Math.random() * width);
+            let randHeight = Math.floor(Math.random() * height);
+            coin.style.left = (width - randWidth) + 'px';
+            coin.style.top = (height - randHeight)  + 'px';
+
+            $(function() {
+                $("#" + "coin" + id).draggable();
+            });
+        }
+
+        
     }
 
     render() {
@@ -40,11 +71,11 @@ class CoinBox extends React.Component {
                         
                     </div>
 
-                    <div className="floor" >Floor
+                    <div id="floor" className="floor" >Floor
                         {this.state.coins.map((coin, index) => {
                             console.log("coin" + coin.toString());
                             return (
-                                <div key={index} id={"coin" + coin.toString()} className="coin" onMouseDown={this.handleCoinDragStart}></div>
+                                <div key={index} id={"coin" + coin.toString()} className="coin"></div>
                             );
                         })}
                     </div>
