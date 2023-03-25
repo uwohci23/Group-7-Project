@@ -7,7 +7,7 @@ using UnityEngine;
 public class oktaSpawn : MonoBehaviour
 {
     public GameObject okta;
-    private int maxOkta = 3;
+    private int maxOkta = 15;
     private List<GameObject> oktaList;
     private IDictionary<float, float> posDictionary = new Dictionary<float, float>();
 
@@ -15,13 +15,27 @@ public class oktaSpawn : MonoBehaviour
     void Start()
     {
         oktaList = new List<GameObject>();
+        
+        
+        generateOkta(maxOkta);
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+
+
+    public void generateOkta(int oktaNum) {
         float height = Camera.main.orthographicSize;
 		float width = height * Camera.main.aspect;
         height -= 1f;
 		width -= 1f;
         int counter = 0;
 
-       	while(counter < maxOkta) {
+       	while(counter < oktaNum) {
             float oktaWidth = Random.Range(-width + 1, width - 3);
             float oktaHeight = Random.Range(-height, height - 1);
 
@@ -38,13 +52,5 @@ public class oktaSpawn : MonoBehaviour
 
             counter ++;
         }
-
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
