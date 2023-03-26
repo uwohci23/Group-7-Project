@@ -84,11 +84,11 @@ public class okta : MonoBehaviour
             oktaSR.tag = "Selected";
         }
         isDown = true;
-
-        
 	}
 
     void OnTriggerEnter2D(Collider2D collision) {
+
+
         if (collision.gameObject.tag == "Tube" && oktaSR.tag == "Selected") {
             logic.addNum(1);
         }

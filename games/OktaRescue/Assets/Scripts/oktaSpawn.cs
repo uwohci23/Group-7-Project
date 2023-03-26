@@ -7,7 +7,7 @@ using UnityEngine;
 public class oktaSpawn : MonoBehaviour
 {
     public GameObject okta;
-    private int maxOkta = 3;
+    private int maxOkta = 18;
     private List<GameObject> oktaList;
     private IDictionary<float, float> posDictionary = new Dictionary<float, float>();
 
@@ -36,21 +36,16 @@ public class oktaSpawn : MonoBehaviour
         int counter = 0;
 
        	while(counter < oktaNum) {
-            float oktaWidth = Random.Range(-width + 1, width - 3);
-            float oktaHeight = Random.Range(-height, height - 1);
+            float oktaWidth = Random.Range(-width + 1f, width - 3f);
+            float oktaHeight = Random.Range(-height, height - 1f);
+            Vector3 pos;
+            do {
+                pos = new Vector3(oktaWidth, oktaHeight, 0f);
 
-            // while (posDictionary.ContainsKey(oktaWidth) && oktaHeight == posDictionary[oktaWidth]) {
-            //     oktaWidth = Random.Range(-width + 1, width - 3);
-            //     oktaHeight = Random.Range(-height, height - 1);
-            // }
-
-            // posDictionary.Add(oktaWidth, oktaHeight);
-
-            Vector3 pos = new Vector3(oktaWidth, oktaHeight, 0f);
-
-            Instantiate(okta, pos, transform.rotation);
-            // okta.tag = "Okta";
-            // oktaList.Add(okta);
+            } while (Physics.OverlapSphere(pos, 1f).Length > 0);
+            // okta is a PREFAB!!!!
+            GameObject oktaObj= Instantiate(okta, pos, transform.rotation);
+            oktaList.Add(oktaObj);
 
             counter ++;
         }
