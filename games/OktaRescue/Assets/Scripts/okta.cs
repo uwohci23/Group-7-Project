@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class okta : MonoBehaviour
 {
-    public float speed = 200f;
+    public float speed;
     public logicScript logic;
 
     private Color startcolor;
@@ -30,7 +30,6 @@ public class okta : MonoBehaviour
         startPos = transform.position;
         prevPos = transform.position;
         logic = GameObject.FindGameObjectWithTag("Logic").GetComponent<logicScript>();
-
     }
 
     // Update is called once per frame
@@ -53,10 +52,6 @@ public class okta : MonoBehaviour
                 startPos = Vector3.MoveTowards(transform.position, prevPos, speed * Time.deltaTime);
                 transform.position = startPos;
                 oktaSR.color = startcolor;
-                Debug.Log(startcolor);
-                Debug.Log(oktaSR.color);
-
-
             }
 
         }

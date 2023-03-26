@@ -30,7 +30,7 @@ public class timerScript : MonoBehaviour
             else {
                 timerLeft = 0;
                 timerOn = false;
-                SceneManager.LoadScene(sceneName);
+                // SceneManager.LoadScene(sceneName);
 
             }
         }

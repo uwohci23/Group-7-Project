@@ -7,6 +7,8 @@ TagManager:
   - Logic
   - Okta
   - Tube
+  - Selected
+  - OktaSpawner
   layers:
   - Default
   - TransparentFX

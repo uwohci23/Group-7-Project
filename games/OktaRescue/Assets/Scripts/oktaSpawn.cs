@@ -7,7 +7,7 @@ using UnityEngine;
 public class oktaSpawn : MonoBehaviour
 {
     public GameObject okta;
-    private int maxOkta = 15;
+    private int maxOkta = 3;
     private List<GameObject> oktaList;
     private IDictionary<float, float> posDictionary = new Dictionary<float, float>();
 

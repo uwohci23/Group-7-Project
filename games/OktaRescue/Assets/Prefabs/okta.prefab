@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 472330708058978853}
   - component: {fileID: 472330708058978857}
   - component: {fileID: 472330708058978856}
-  - component: {fileID: 472330708058978859}
+  - component: {fileID: 1344606793343613870}
   m_Layer: 0
   m_Name: okta
   m_TagString: Okta
@@ -124,7 +124,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &472330708058978859
+--- !u!114 &1344606793343613870
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

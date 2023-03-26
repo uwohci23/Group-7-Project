@@ -10,7 +10,7 @@ public class saveButton : MonoBehaviour
 
     public logicScript logic;
 
-    private oktaSpawn oktaSpawner;
+    public oktaSpawn oktaSpawner;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,7 +20,6 @@ public class saveButton : MonoBehaviour
 
         Button btn = saveB.GetComponent<Button>();
 		btn.onClick.AddListener(TaskOnClick);
-
         
     }
 
@@ -31,7 +30,11 @@ public class saveButton : MonoBehaviour
     }
 
 	void TaskOnClick(){
-        oktaSpawner.generateOkta(5);
+        int addOkta = logic.getScore();
+        Destroy(GameObject.FindWithTag("Selected"));
+        // newly spawned okta need to be clicked twice to move???
+        oktaSpawner.generateOkta(addOkta);
+
 		Debug.Log ("You have clicked the button!");
 	}
 

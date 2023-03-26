@@ -16,6 +16,7 @@ public class logicScript : MonoBehaviour
     public TextMeshProUGUI savedNumText;
     public TextMeshProUGUI needToSavedNumText;
 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -47,4 +48,5 @@ public class logicScript : MonoBehaviour
     public int getScore() {
         return savedNum;
     }
+
 }
