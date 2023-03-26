@@ -47,7 +47,9 @@ public class oktaSpawn : MonoBehaviour
             // posDictionary.Add(oktaWidth, oktaHeight);
 
             Vector3 pos = new Vector3(oktaWidth, oktaHeight, 0f);
+
             okta = Instantiate(okta, pos, transform.rotation);
+            okta.tag = "Okta";
             oktaList.Add(okta);
 
             counter ++;

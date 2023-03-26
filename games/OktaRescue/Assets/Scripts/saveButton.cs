@@ -31,11 +31,17 @@ public class saveButton : MonoBehaviour
 
 	void TaskOnClick(){
         int addOkta = logic.getScore();
-        Destroy(GameObject.FindWithTag("Selected"));
-        // newly spawned okta need to be clicked twice to move???
+        DestroyAll("Selected");
         oktaSpawner.generateOkta(addOkta);
 
-		Debug.Log ("You have clicked the button!");
 	}
+
+    void DestroyAll(string tag) {
+        GameObject[] selectedOkta = GameObject.FindGameObjectsWithTag(tag);
+        for(int i=0; i< selectedOkta. Length; i++)
+        {
+            Destroy(selectedOkta[i]);
+        }
+    }
 
 }
