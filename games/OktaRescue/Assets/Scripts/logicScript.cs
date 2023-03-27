@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
+using System;
+
 
 
 public class logicScript : MonoBehaviour
@@ -21,7 +23,7 @@ public class logicScript : MonoBehaviour
     void Start()
     {
         totalSavedNum = 0;
-        needToSaveNum = Random.Range(0, 10);
+        needToSaveNum = UnityEngine.Random.Range(0, 5);
         needToSavedNumText.text = needToSaveNum.ToString();
     }
 
@@ -45,8 +47,31 @@ public class logicScript : MonoBehaviour
         savedNumText.text = savedNum.ToString();
     }
 
+    public void addToTotal() {
+        totalSavedNum = savedNum + totalSavedNum;
+        Debug.Log("total saved okta: " + totalSavedNum);
+    }
+
+    public void resetSavedNum() {
+        savedNum = 0;
+    }
+
     public int getScore() {
         return savedNum;
     }
+    
+
+    public bool savedNumEqual() {
+        int tempNeedToSave = stringConvertInt(needToSavedNumText.text);
+        int tempSaved = stringConvertInt(savedNumText.text);
+
+        return tempNeedToSave == tempSaved;
+    }
+
+    public int stringConvertInt(string text) {
+        int value = Convert.ToInt32(text);
+        return value;
+    }
+
 
 }

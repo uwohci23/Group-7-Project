@@ -13,8 +13,8 @@ public class okta : MonoBehaviour
     private Vector3 startPos;
     // prev position of a okta that it can be return to
     private Vector3 prevPos;
-
-    // public static List<Vector3> selectOktaPosList = new List<Vector3>();
+    // 18 available pos
+    public List<Vector3> availablePos = new List<Vector3>();
 
 
 	private bool isDown = false;
@@ -23,10 +23,12 @@ public class okta : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        availablePosList();
+
         oktaSR = GetComponent<SpriteRenderer>();
         startcolor = oktaSR.color;
-        targetPosition = new Vector3(8, -3, 0);
+        // check which should be target position in the list
+
         startPos = transform.position;
         prevPos = transform.position;
         logic = GameObject.FindGameObjectWithTag("Logic").GetComponent<logicScript>();
@@ -35,6 +37,7 @@ public class okta : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        findTargetPos();
         MoveOktaTo();
 
     }
@@ -79,6 +82,7 @@ public class okta : MonoBehaviour
 	void OnMouseDown() {
         if (oktaSR.tag == "Selected") {
             oktaSR.tag = "Okta";
+
         }
         else {
             oktaSR.tag = "Selected";
@@ -97,5 +101,14 @@ public class okta : MonoBehaviour
         }
     }
 
+    void availablePosList() {
+        availablePos.Add(new Vector3(8.1f, -3f, 0));
+        availablePos.Add(new Vector3(7f, -3f, 0));
+        availablePos.Add(new Vector3(8.1f, -2.5f, 0));
+    }
+
+    void findTargetPos() {
+        targetPosition = availablePos[Random.Range(0, 2)];
+    }
         
 }

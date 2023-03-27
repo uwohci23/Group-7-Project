@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using TMPro;
+
 
 
 public class saveButton : MonoBehaviour
@@ -11,6 +14,9 @@ public class saveButton : MonoBehaviour
     public logicScript logic;
 
     public oktaSpawn oktaSpawner;
+
+    public TextMeshProUGUI needToSavedNumText;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -20,7 +26,7 @@ public class saveButton : MonoBehaviour
 
         Button btn = saveB.GetComponent<Button>();
 		btn.onClick.AddListener(TaskOnClick);
-        
+
     }
 
     // Update is called once per frame
@@ -32,8 +38,15 @@ public class saveButton : MonoBehaviour
 	void TaskOnClick(){
         int addOkta = logic.getScore();
         DestroyAll("Selected");
+        // if saved number equal to need to saved number
+        // add saved number to total saved
+        if (logic.savedNumEqual()) {
+            logic.addToTotal();
+        }
+        logic.resetSavedNum();
+        Debug.Log(logic.savedNumEqual());
         oktaSpawner.generateOkta(addOkta);
-
+        needToSavedNumText.text = Random.Range(0, 5).ToString();
 	}
 
     void DestroyAll(string tag) {

@@ -9,7 +9,6 @@ public class oktaSpawn : MonoBehaviour
     public GameObject okta;
     private int maxOkta = 18;
     private List<GameObject> oktaList;
-    private IDictionary<float, float> posDictionary = new Dictionary<float, float>();
 
     // Start is called before the first frame update
     void Start()
@@ -36,7 +35,7 @@ public class oktaSpawn : MonoBehaviour
         int counter = 0;
 
        	while(counter < oktaNum) {
-            float oktaWidth = Random.Range(-width + 1f, width - 3f);
+            float oktaWidth = Random.Range(-width + 1f, width - 3.5f);
             float oktaHeight = Random.Range(-height, height - 1f);
             Vector3 pos;
             do {
