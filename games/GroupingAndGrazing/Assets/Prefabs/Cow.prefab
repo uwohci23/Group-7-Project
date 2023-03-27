@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 85498286692469836}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.25, y: 1.25, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -146,5 +146,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7978e39c11b5ab842adceb28aa1f8016, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cowManager: {fileID: 0}
   cowSprite: {fileID: 21300000, guid: af11225b105ccbd46b0c40214d0fa65c, type: 3}
   selectedSprite: {fileID: 21300000, guid: 7637f858a0bb475489e730141d1bbcc6, type: 3}
+  leftBoundary: 0
+  rightBoundary: 0
+  speed: 25
