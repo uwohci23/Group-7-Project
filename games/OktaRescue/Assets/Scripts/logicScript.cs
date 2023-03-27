@@ -12,13 +12,15 @@ public class logicScript : MonoBehaviour
 {
 
     // totalSavedNum need to be passed to the count scene
-    static int totalSavedNum;
+    public int totalSavedNum;
     public int savedNum;
     public int needToSaveNum;
     public TextMeshProUGUI savedNumText;
     public TextMeshProUGUI needToSavedNumText;
 
-
+    void Awake () {
+        DontDestroyOnLoad(this);
+    }
     // Start is called before the first frame update
     void Start()
     {

@@ -108,7 +108,8 @@ public class okta : MonoBehaviour
     }
 
     void findTargetPos() {
-        targetPosition = availablePos[Random.Range(0, 2)];
+        targetPosition = new Vector3(8.1f, -3f, 0);
+        // targetPosition = availablePos[Random.Range(0, 2)];
     }
         
 }

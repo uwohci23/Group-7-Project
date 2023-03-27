@@ -35,13 +35,15 @@ public class oktaSpawn : MonoBehaviour
         int counter = 0;
 
        	while(counter < oktaNum) {
-            float oktaWidth = Random.Range(-width + 1f, width - 3.5f);
-            float oktaHeight = Random.Range(-height, height - 1f);
-            Vector3 pos;
-            do {
-                pos = new Vector3(oktaWidth, oktaHeight, 0f);
 
-            } while (Physics.OverlapSphere(pos, 1f).Length > 0);
+            Vector2 pos;
+            do {
+                float oktaWidth = Random.Range(-width + 1f, width - 3.5f);
+                float oktaHeight = Random.Range(-height, height - 1f);
+                pos = new Vector2(oktaWidth, oktaHeight);
+                Debug.Log("regenerated");
+
+            } while (Physics2D.OverlapCircleAll(pos, 1f).Length > 0);
             // okta is a PREFAB!!!!
             GameObject oktaObj= Instantiate(okta, pos, transform.rotation);
             oktaList.Add(oktaObj);
