@@ -1,3 +1,15 @@
+.game-container {
+    aspect-ratio: 16 / 9;
+    width: 50rem;
+    height: 20rem;
+    margin-top: 20rem;
+    margin-left: 35rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    
+}
+
 .coin-box-container {
     display: grid;
     grid-auto-rows: auto;
@@ -53,18 +65,41 @@
     margin: auto;
 }
 
+/* Coin styling */
 .coin {
-    background: #000;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
     position: absolute;
     left: 0;
     top: 0;
-    cursor: pointer;
+    cursor: grab;
+}
+
+.quarter {
+    content: url("../art/coinBox/quarter.png");
+    width: 4rem;
+    height:auto;
+}
+
+.dime {
+    content:url("../art/coinBox/dime.png");
+    width: 3rem;
+    height:auto;
+}
+
+.nickel {
+    content:url("../art/coinBox/nickel.png");
+    width: 3.5rem;
+    height:auto;
+}
+
+.penny {
+    content:url("../art/coinBox/penny.png");
+    width: 2rem;
+    height:auto;
 }
 
 
+
+/* Toggle slider styling */
 .switch {
     display: inline-block;
     height: 34px;

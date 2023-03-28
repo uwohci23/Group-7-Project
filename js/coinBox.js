@@ -7,21 +7,31 @@ class CoinBox extends React.Component {
             max: 7,
             min: 3,
             coins: [],
-            lefts: [0],
-            tops: [0],
+            lefts: [],
+            tops: [],
             floorboxCoins: [],
+            count: 0
         };
+
+        this.handleClick = this.handleClick.bind(this);
+
+        this.setUpCoins = this.setUpCoins.bind(this);
+        this.setUpFloorBox = this.setUpFloorBox.bind(this);
+        this.setUpTooltips = this.setUpTooltips.bind(this);
+
+        this.handleClick = this.handleClick.bind(this);
     }
 
-    // This is supposed to trigger every rerender
-    // Anything that uses lefts and tops does not work
-    componentDidMount() {
+    setUpCoins() {
+        console.log("SETTING UP COINS");
+        
         // Generate random number of coins
-        const numCoins = Math.floor(Math.random() * (this.state.max - this.state.min) + this.state.min);
+        const numCoins = Math.floor(Math.random() * (this.state.max - this.state.min + 1) + this.state.min);
+        console.log("random: ", numCoins);
 
         // store values in temp
         let temp = [];
-        for (let i = 1; i < numCoins; i++) {
+        for (let i = 0; i < numCoins; i++) {
             temp.push(i);
         }
 
@@ -34,8 +44,8 @@ class CoinBox extends React.Component {
 
 
         let floor = this.floorDiv;
-        let width = floor.offsetWidth;
-        let height = floor.offsetHeight;
+        let width = floor.offsetWidth - 20;
+        let height = floor.offsetHeight - 20;
 
         console.log("FLORR: ", floor)
 
@@ -54,23 +64,39 @@ class CoinBox extends React.Component {
             tempLefts.push((width - randWidth));
             tempTops.push((height - randHeight));
 
+            // Generate random coin
+            let randomizeCoin = Math.floor(Math.random() * (4 - 1 + 1) + 1);
+            let randomCoin = "";
+            let dollarValue = "";
+            if (randomizeCoin === 4) {
+                randomCoin = "quarter";
+                dollarValue = "25";
+            } else if (randomizeCoin === 3) {
+                randomCoin = "dime";
+                dollarValue = "10";
+            } else if (randomizeCoin === 2) {
+                randomCoin = "nickel";
+                dollarValue = "5";
+            } else {
+                randomCoin = "penny";
+                dollarValue = "1";
+            }
+
             // makes the coin with that id draggable
             $(function () {
                 $("#" + "coin" + id).draggable();
+                $("#" + "coin" + id).addClass(randomCoin);
+                $("#" + "coin" + id).attr("dollarValue", dollarValue);
+                $("#" + "coin" + id).css("top", `+=${(height - randHeight)}`);
+                $("#" + "coin" + id).css("left", `+=${(width - randWidth)}`);
+                //$("#" + "coin" + id).attr("onClick", function() { $(this).css("cursor", "grabbing")});
+                //$("#" + "coin" + id).css("content", "url(../art/coinbox/penny.png");
             });
         }
 
-        // should copy array but it doesnt, idk
-        this.setState({
-            lefts: this.state.lefts.concat(tempLefts),
-            tops: this.state.tops.concat(tempTops)
-        });
+    }
 
-        console.log(tempLefts)
-        console.log(tempTops)
-        console.log(this.state.tops)
-        console.log(this.state.lefts)
-
+    setUpFloorBox() {
         // makes the floorbox droppable (things can be dropped into it so it can trigger other things)
         let floor1 = document.getElementById("floorbox");
         let ball2 = floor1.getAttribute("data-coin");
@@ -85,7 +111,9 @@ class CoinBox extends React.Component {
                 },
             });
         });
+    }
 
+    setUpTooltips() {
         $(function () {
             $("#answer").tooltip();
             $("#check-answer").tooltip();
@@ -95,26 +123,49 @@ class CoinBox extends React.Component {
         });
     }
 
-    componentDidUpdate() {
+    // This is supposed to trigger every rerender
+    componentDidMount() {
+        console.log("MOUNT")
+
+        this.setUpCoins();
+        this.setUpFloorBox();
+        this.setUpTooltips();
+
+        
+    }
+
+    componentDidUpdate(prevProps, prevState) {
         console.log("UPDATE")
+        if (this.state.count !== prevState.count) {
+            this.setUpCoins();
+            this.setUpFloorBox();
+            this.setUpTooltips();
+        }
     }
 
     handleDrop() {
         console.log("big dropper")
     }
 
+    handleClick() {
+        let empty = [];
+        this.setState({ coins: empty });
+        this.setState({ count: this.state.count + 1});
+    }
+
     render() {
         return (
-            <div>
+            <div className="game-container">
                 <PopupMenu name="Coin Box" onClick={this.props.onClick} />
 
                 <div className="coin-box-container">
                     <div className="buttons-area">Buttons
+                    <button onClick={this.handleClick}>Restart</button>
                         <input id="answer" type="text" placeholder="Put value here" title="That&apos;s what this widget is"></input>
                         <button id="check-answer" title="Lebron James">Check</button>
-                        <label class="switch" for="checkbox">
+                        <label className="switch" htmlFor="checkbox">
                             <input type="checkbox" id="checkbox" />
-                            <div class="slider round"></div>
+                            <div className="slider round"></div>
                         </label>
 
                     </div>
@@ -148,6 +199,7 @@ class CoinBox extends React.Component {
                                     id={"coin" + coin.toString()}
                                     className="coin"
                                     title="This is a coin"
+                                    //onClick={$(function() { $(this).css("cursor", "grabbing")})}
                                 //style={`top: ${this.state.tops[index+1]} + px; left: ${this.state.lefts[index+1]}  + px;`}
                                 >
                                 </div>
