@@ -12,7 +12,7 @@ public class logicScript : MonoBehaviour
 {
 
     // totalSavedNum need to be passed to the count scene
-    public static int totalSavedNum { get; set; }
+    public int totalSavedNum;
     public int savedNum;
     public int needToSaveNum;
     public TextMeshProUGUI savedNumText;

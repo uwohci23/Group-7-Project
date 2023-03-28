@@ -742,6 +742,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e20187686ee2e428fb53c4600abcfbae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  totalSavedNum: 0
   savedNum: 0
   needToSaveNum: 0
   savedNumText: {fileID: 778691138}
@@ -1352,7 +1353,7 @@ GameObject:
   - component: {fileID: 2121295479}
   - component: {fileID: 2121295480}
   m_Layer: 0
-  m_Name: OktaSpawner
+  m_Name: OktaManager
   m_TagString: OktaSpawner
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

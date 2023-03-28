@@ -45,7 +45,7 @@ public class saveButton : MonoBehaviour
         }
         logic.resetSavedNum();
         oktaSpawner.generateOkta(addOkta);
-        needToSavedNumText.text = Random.Range(0, 5).ToString();
+        needToSavedNumText.text = Random.Range(1, 5).ToString();
 	}
 
     void DestroyAll(string tag) {

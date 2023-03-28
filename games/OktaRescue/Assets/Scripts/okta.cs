@@ -23,8 +23,6 @@ public class okta : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        availablePosList();
-
         oktaSR = GetComponent<SpriteRenderer>();
         startcolor = oktaSR.color;
         // check which should be target position in the list
@@ -101,14 +99,9 @@ public class okta : MonoBehaviour
         }
     }
 
-    void availablePosList() {
-        availablePos.Add(new Vector3(8.1f, -3f, 0));
-        availablePos.Add(new Vector3(7f, -3f, 0));
-        availablePos.Add(new Vector3(8.1f, -2.5f, 0));
-    }
 
     void findTargetPos() {
-        targetPosition = new Vector3(8.1f, -3f, 0);
+        targetPosition = new Vector3(8.1f, 3f, 0);
         // targetPosition = availablePos[Random.Range(0, 2)];
     }
         
