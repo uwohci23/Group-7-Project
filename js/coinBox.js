@@ -36,7 +36,7 @@ class CoinBox extends React.Component {
         let floor = this.floorDiv;
         let width = floor.offsetWidth;
         let height = floor.offsetHeight;
-        
+
         console.log("FLORR: ", floor)
 
         // this doesnt do anything its just for testing
@@ -48,14 +48,14 @@ class CoinBox extends React.Component {
 
         for (let id of temp) {
             console.log("#" + "coin" + id);
-            
+
             let randWidth = Math.floor(Math.random() * width);
             let randHeight = Math.floor(Math.random() * height);
             tempLefts.push((width - randWidth));
             tempTops.push((height - randHeight));
 
             // makes the coin with that id draggable
-            $(function() {
+            $(function () {
                 $("#" + "coin" + id).draggable();
             });
         }
@@ -77,22 +77,22 @@ class CoinBox extends React.Component {
         console.log(ball2);
 
         let droppedCoin = "";
-        $( function() {
-            $( "#floorbox" ).droppable({
-              drop: function( event, ui ) {
-                droppedCoin = ui.draggable[0].id;
-                $('#floorbox').attr("data-coin", droppedCoin);
-              },
+        $(function () {
+            $("#floorbox").droppable({
+                drop: function (event, ui) {
+                    droppedCoin = ui.draggable[0].id;
+                    $('#floorbox').attr("data-coin", droppedCoin);
+                },
             });
-        } );
+        });
 
-        $( function() {
+        $(function () {
             $("#answer").tooltip();
             $("#check-answer").tooltip();
             $(".coin").tooltip({
                 hide: { effect: "explode", duration: 1000 }
             });
-        } );
+        });
     }
 
     componentDidUpdate() {
@@ -112,7 +112,11 @@ class CoinBox extends React.Component {
                     <div className="buttons-area">Buttons
                         <input id="answer" type="text" placeholder="Put value here" title="That&apos;s what this widget is"></input>
                         <button id="check-answer" title="Lebron James">Check</button>
-                    
+                        <label class="switch" for="checkbox">
+                            <input type="checkbox" id="checkbox" />
+                            <div class="slider round"></div>
+                        </label>
+
                     </div>
 
                     <div className="from-floor-area">Exchange coins from floor
@@ -125,26 +129,26 @@ class CoinBox extends React.Component {
                         <div id="bankbox" className="a-coin-box">
                             thing
                         </div>
-                    
+
                     </div>
 
                     <div className="bank-account" >Coins from bank
                         <div id="accountbox" className="a-coin-box">
                             thing
                         </div>
-                        
+
                     </div>
 
                     <div id="floor" className="floor" ref={(div) => { this.floorDiv = div; }}>Floor
                         {this.state.coins.map((coin, index) => {
                             console.log("coin" + coin.toString());
                             return (
-                                <div 
-                                    key={index} 
-                                    id={"coin" + coin.toString()} 
+                                <div
+                                    key={index}
+                                    id={"coin" + coin.toString()}
                                     className="coin"
-                                    title="This is a coin" 
-                                    //style={`top: ${this.state.tops[index+1]} + px; left: ${this.state.lefts[index+1]}  + px;`}
+                                    title="This is a coin"
+                                //style={`top: ${this.state.tops[index+1]} + px; left: ${this.state.lefts[index+1]}  + px;`}
                                 >
                                 </div>
                             );
