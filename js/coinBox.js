@@ -95,6 +95,10 @@ class CoinBox extends React.Component {
         } );
     }
 
+    componentDidUpdate() {
+        console.log("UPDATE")
+    }
+
     handleDrop() {
         console.log("big dropper")
     }
