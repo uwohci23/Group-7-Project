@@ -41,7 +41,6 @@ public class oktaSpawn : MonoBehaviour
                 float oktaWidth = Random.Range(-width + 1f, width - 3.5f);
                 float oktaHeight = Random.Range(-height, height - 1f);
                 pos = new Vector2(oktaWidth, oktaHeight);
-                Debug.Log("regenerated");
 
             } while (Physics2D.OverlapCircleAll(pos, 1f).Length > 0);
             // okta is a PREFAB!!!!

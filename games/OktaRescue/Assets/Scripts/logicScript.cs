@@ -12,20 +12,18 @@ public class logicScript : MonoBehaviour
 {
 
     // totalSavedNum need to be passed to the count scene
-    public int totalSavedNum;
+    public static int totalSavedNum { get; set; }
     public int savedNum;
     public int needToSaveNum;
     public TextMeshProUGUI savedNumText;
     public TextMeshProUGUI needToSavedNumText;
 
-    void Awake () {
-        DontDestroyOnLoad(this);
-    }
     // Start is called before the first frame update
     void Start()
     {
+        PlayerPrefs.SetInt("totalSaved", 0);
         totalSavedNum = 0;
-        needToSaveNum = UnityEngine.Random.Range(0, 5);
+        needToSaveNum = UnityEngine.Random.Range(1, 5);
         needToSavedNumText.text = needToSaveNum.ToString();
     }
 
@@ -52,6 +50,7 @@ public class logicScript : MonoBehaviour
     public void addToTotal() {
         totalSavedNum = savedNum + totalSavedNum;
         Debug.Log("total saved okta: " + totalSavedNum);
+        PlayerPrefs.SetInt("totalSaved", totalSavedNum);
     }
 
     public void resetSavedNum() {
