@@ -85,6 +85,14 @@ class CoinBox extends React.Component {
               },
             });
         } );
+
+        $( function() {
+            $("#answer").tooltip();
+            $("#check-answer").tooltip();
+            $(".coin").tooltip({
+                hide: { effect: "explode", duration: 1000 }
+            });
+        } );
     }
 
     handleDrop() {
@@ -98,6 +106,8 @@ class CoinBox extends React.Component {
 
                 <div className="coin-box-container">
                     <div className="buttons-area">Buttons
+                        <input id="answer" type="text" placeholder="Put value here" title="That&apos;s what this widget is"></input>
+                        <button id="check-answer" title="Lebron James">Check</button>
                     
                     </div>
 
@@ -128,7 +138,8 @@ class CoinBox extends React.Component {
                                 <div 
                                     key={index} 
                                     id={"coin" + coin.toString()} 
-                                    className="coin" 
+                                    className="coin"
+                                    title="This is a coin" 
                                     //style={`top: ${this.state.tops[index+1]} + px; left: ${this.state.lefts[index+1]}  + px;`}
                                 >
                                 </div>
