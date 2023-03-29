@@ -6,14 +6,14 @@ public class CountLogicManager : MonoBehaviour
 {
     public GameObject newOkta;
     public Vector2 initalPos = new Vector2(-9.4f, 3f);
-    public int test = 11;
+    // public int test = 11;
 
     private float addX = 1.7f;
     private float addY = -1.8f;
     // Start is called before the first frame update
     void Start()
     {
-        PlayerPrefs.SetInt("totalSaved", test);
+        // PlayerPrefs.SetInt("totalSaved", test);
         // insitiate start at inital position
         // add 1.7 to inital position x axis at each incrementation to spawn
         // only -1.8 to inital position y axis when number of okta % 10 is 0 which means there is one full line
