@@ -8,12 +8,15 @@ using TMPro;
 public class CheckButton : MonoBehaviour
 {
     public Button checkB;
-    public sliderValueToText silderScript;
+    public sliderValueToText slider;
+    public eventScript eventM;
 
     // Start is called before the first frame update
     void Start()
     {
-        silderScript = GameObject.FindGameObjectWithTag("Slider").GetComponent<sliderValueToText>();
+        // canot find the slider script???
+        slider = GameObject.FindGameObjectWithTag("SliderManager").GetComponent<sliderValueToText>();
+        eventM = GameObject.FindGameObjectWithTag("EventManager").GetComponent<eventScript>();
         Button btn = checkB.GetComponent<Button>();
         btn.onClick.AddListener(TaskOnClick);
 
@@ -26,8 +29,12 @@ public class CheckButton : MonoBehaviour
     }
 
     void TaskOnClick() {
-        if(silderScript.getSliderValue() == PlayerPrefs.GetInt("totalSaved")) {
-            Debug.Log("good job!!");
+        if(slider.getSliderValue() == PlayerPrefs.GetInt("totalSaved")) {
+            eventM.showCorrectPop();
+        }
+        else {
+            Debug.Log("try again");
+
         }
     }
 }

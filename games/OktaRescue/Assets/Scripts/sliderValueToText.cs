@@ -16,7 +16,6 @@ public class sliderValueToText : MonoBehaviour {
 
     public void ValueChangeCheck()
     {
-        // textSliderValue.text = "test test";
         textSliderValue.text = sliderUI.value.ToString();
         // Debug.Log(sliderUI.value.ToString());
     }
