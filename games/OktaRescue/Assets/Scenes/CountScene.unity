@@ -132,29 +132,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 95013629}
-  - component: {fileID: 95013628}
+  - component: {fileID: 95013630}
   m_Layer: 0
-  m_Name: CheckButtonBehavior
+  m_Name: ButtonBehavior
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &95013628
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 95013627}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 95f96510c89344fe4a31ae9648205e1a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  checkB: {fileID: 2127273024}
-  slider: {fileID: 0}
-  eventM: {fileID: 0}
 --- !u!4 &95013629
 Transform:
   m_ObjectHideFlags: 0
@@ -170,6 +155,24 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &95013630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 95013627}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24916b99866eb4c08b6aeed2423b07cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  checkB: {fileID: 2127273024}
+  playAgainB: {fileID: 1754897662}
+  moveOnB: {fileID: 1177489310}
+  exitB: {fileID: 1827538706}
+  slider: {fileID: 0}
+  eventM: {fileID: 0}
 --- !u!1 &218240498
 GameObject:
   m_ObjectHideFlags: 0

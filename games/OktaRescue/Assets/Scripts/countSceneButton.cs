@@ -5,9 +5,13 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
 
-public class CheckButton : MonoBehaviour
+
+public class countSceneButton : MonoBehaviour
 {
     public Button checkB;
+    public Button playAgainB;
+    public Button moveOnB;
+    public Button exitB;
     public sliderValueToText slider;
     public eventScript eventM;
 
@@ -18,8 +22,13 @@ public class CheckButton : MonoBehaviour
         slider = GameObject.FindGameObjectWithTag("SliderManager").GetComponent<sliderValueToText>();
         eventM = GameObject.FindGameObjectWithTag("EventManager").GetComponent<eventScript>();
         Button btn = checkB.GetComponent<Button>();
-        btn.onClick.AddListener(TaskOnClick);
-
+        btn.onClick.AddListener(checkBTaskOnClick);
+        btn = playAgainB.GetComponent<Button>();
+        btn.onClick.AddListener(playAgainBTaskOnClick);
+        btn = exitB.GetComponent<Button>();
+        btn.onClick.AddListener(exitBTaskOnClick);
+        // btn = moveOnB.GetComponent<Button>();
+        // btn.onClick.AddListener(moveOnBTaskOnClick);
     }
 
     // Update is called once per frame
@@ -28,7 +37,7 @@ public class CheckButton : MonoBehaviour
         
     }
 
-    void TaskOnClick() {
+    void checkBTaskOnClick() {
         if(slider.getSliderValue() == PlayerPrefs.GetInt("totalSaved")) {
             eventM.showCorrectPop();
         }
@@ -37,4 +46,17 @@ public class CheckButton : MonoBehaviour
 
         }
     }
+
+    void playAgainBTaskOnClick() {
+        SceneManager.LoadScene("MainGame");
+    }
+
+    void exitBTaskOnClick() {
+        SceneManager.LoadScene("DifficultyMenu");
+    }
+
+    // move on to the next difficulty level
+    // void moveOnBTaskOnClick() {
+
+    // }
 }
