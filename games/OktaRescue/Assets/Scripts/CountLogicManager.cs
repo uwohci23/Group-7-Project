@@ -6,7 +6,6 @@ public class CountLogicManager : MonoBehaviour
 {
     public GameObject newOkta;
     public Vector2 initalPos = new Vector2(-9.4f, 3f);
-    // public int test = 11;
 
     private float addX = 1.7f;
     private float addY = -1.8f;
