@@ -55,13 +55,19 @@ public class okta : MonoBehaviour
             else if (oktaSR.tag == "Okta") {
                 startPos = Vector3.MoveTowards(transform.position, prevPos, speed * Time.deltaTime);
                 transform.position = startPos;
-                oktaSR.color = startcolor;
+                // oktaSR.color = startcolor;
             }
 
         }
         if (transform.position == targetPosition) {
-            // oktaSR.color = Color.green;
             isDown = false;
+            // if (logic.getScore() <= logic.getNeedToSave()) {
+            //     oktaSR.color = Color.green;
+            // }
+            // else {
+            //     oktaSR.color = Color.red;
+
+            // }
         }
     }
 
@@ -78,11 +84,9 @@ public class okta : MonoBehaviour
             targetPosition = new Vector2(initalPos.x, initalPos.y + addY * numRow);
         }
         else if (savedNum % 2 == 1){
-            Debug.Log("current saved num: " + savedNum + " at " + targetPosition);
             targetPosition = new Vector2(initalPos.x + addX, initalPos.y + addY * numRow);
         }
         else {
-            Debug.Log(targetPosition);
             targetPosition = initalPos;
         }
 

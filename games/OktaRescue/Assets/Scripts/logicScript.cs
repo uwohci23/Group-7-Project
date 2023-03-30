@@ -60,6 +60,10 @@ public class logicScript : MonoBehaviour
     public int getScore() {
         return savedNum;
     }
+
+    public int getNeedToSave() {
+        return needToSaveNum;
+    }
     
 
     public bool savedNumEqual() {

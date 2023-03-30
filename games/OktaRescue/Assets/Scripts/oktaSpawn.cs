@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-// OKTA OVERLAP EACH OTHER!!!
 public class oktaSpawn : MonoBehaviour
 {
     public GameObject okta;
@@ -14,8 +13,7 @@ public class oktaSpawn : MonoBehaviour
     void Start()
     {
         oktaList = new List<GameObject>();
-        
-        
+
         generateOkta(maxOkta);
         
     }
