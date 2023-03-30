@@ -12,6 +12,8 @@ public class countSceneButton : MonoBehaviour
     public Button playAgainB;
     public Button moveOnB;
     public Button exitB;
+    public Button helpB;
+
     public sliderValueToText slider;
     public eventScript eventM;
 
@@ -29,6 +31,8 @@ public class countSceneButton : MonoBehaviour
         btn.onClick.AddListener(exitBTaskOnClick);
         // btn = moveOnB.GetComponent<Button>();
         // btn.onClick.AddListener(moveOnBTaskOnClick);
+        btn = helpB.GetComponent<Button>();
+        btn.onClick.AddListener(helpBTaskOnClick);
     }
 
     // Update is called once per frame
@@ -42,8 +46,6 @@ public class countSceneButton : MonoBehaviour
             eventM.showCorrectPop();
         }
         else {
-            Debug.Log("try again");
-
         }
     }
 
@@ -59,4 +61,10 @@ public class countSceneButton : MonoBehaviour
     // void moveOnBTaskOnClick() {
 
     // }
+
+    void helpBTaskOnClick() {
+        SceneManager.LoadScene("CountScene");
+    }
+
+
 }
