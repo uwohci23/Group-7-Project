@@ -5,6 +5,7 @@ class PopupMenu extends React.Component {
         super(props)
 
         this.handleOpenPopup = this.handleOpenPopup.bind(this);
+        this.handleRestart = this.handleRestart.bind(this);
         this.handleClosePopup = this.handleClosePopup.bind(this);
         this.handleClosePopupWithEsc = this.handleClosePopupWithEsc.bind(this);
     }
@@ -14,6 +15,11 @@ class PopupMenu extends React.Component {
         document.getElementById('popup').style.display = "grid";
         const popup = document.querySelector('.popup');
         popup.showModal();
+    }
+
+    handleRestart() {
+        this.props.restart();
+        this.handleClosePopup();
     }
 
     // Handle closing the popup via the X in the top right corner of the popup
@@ -40,7 +46,7 @@ class PopupMenu extends React.Component {
 
                 <dialog id="popup" className="popup" onKeyDown={this.handleClosePopupWithEsc}>
                     <button id="close-popup" className="close-popup" onClick={this.handleClosePopup}>&#215;</button>
-                    <button id="choice" className="choice">Restart</button>
+                    <button id="choice" className="choice" onClick={this.handleRestart}>Restart</button>
                     <button id="choice" className="choice" onClick={() => this.props.onClick(0)}>Exit</button>
                 </dialog>
 

@@ -10,16 +10,19 @@ class CoinBox extends React.Component {
             lefts: [],
             tops: [],
             floorboxCoins: [],
-            count: 0
+            count: 0,
+            total: 0,
+            win: false
         };
 
-        this.handleClick = this.handleClick.bind(this);
-
         this.setUpCoins = this.setUpCoins.bind(this);
+        this.setUpFloor = this.setUpFloor.bind(this);
         this.setUpFloorBox = this.setUpFloorBox.bind(this);
         this.setUpTooltips = this.setUpTooltips.bind(this);
 
-        this.handleClick = this.handleClick.bind(this);
+        this.restart = this.restart.bind(this);
+
+        this.handleAnswer = this.handleAnswer.bind(this);
     }
 
     setUpCoins() {
@@ -55,6 +58,7 @@ class CoinBox extends React.Component {
 
         let tempLefts = []
         let tempTops = []
+        let tempTotal = 0;
 
         for (let id of temp) {
             console.log("#" + "coin" + id);
@@ -82,6 +86,9 @@ class CoinBox extends React.Component {
                 dollarValue = "1";
             }
 
+            tempTotal += parseInt(dollarValue);
+            
+
             // makes the coin with that id draggable
             $(function () {
                 $("#" + "coin" + id).draggable();
@@ -94,6 +101,24 @@ class CoinBox extends React.Component {
             });
         }
 
+        this.setState({ total: tempTotal });
+
+    }
+
+    setUpFloor() {
+        let floor = document.getElementById("floor");
+        var droppedCoin = "";
+        
+            $("#floor").droppable({
+                drop: function (event, ui) {
+                    droppedCoin = ui.draggable[0].id;
+                    $('#floor').attr("data-coin", droppedCoin);
+                    
+                },
+            });
+        
+
+        console.log("DROPPED: ", droppedCoin)
     }
 
     setUpFloorBox() {
@@ -108,6 +133,7 @@ class CoinBox extends React.Component {
                 drop: function (event, ui) {
                     droppedCoin = ui.draggable[0].id;
                     $('#floorbox').attr("data-coin", droppedCoin);
+                    console.log("DROPPED: ", droppedCoin)
                 },
             });
         });
@@ -128,6 +154,7 @@ class CoinBox extends React.Component {
         console.log("MOUNT")
 
         this.setUpCoins();
+        this.setUpFloor();
         this.setUpFloorBox();
         this.setUpTooltips();
 
@@ -147,22 +174,34 @@ class CoinBox extends React.Component {
         console.log("big dropper")
     }
 
-    handleClick() {
+    restart() {
         let empty = [];
-        this.setState({ coins: empty });
-        this.setState({ count: this.state.count + 1});
+        this.setState({ 
+            coins: empty,
+            total: 0,
+            count: this.state.count + 1
+        });
+    }
+
+    handleAnswer() {
+        let answer = document.getElementById("answer").value;
+        if (parseInt(answer) === this.state.total) {
+            console.log("WIN")
+        } else {
+            console.log("WRONG")
+        }
     }
 
     render() {
         return (
             <div className="game-container">
-                <PopupMenu name="Coin Box" onClick={this.props.onClick} />
+                <PopupMenu name="Coin Box" onClick={this.props.onClick} restart={this.restart}/>
 
                 <div className="coin-box-container">
                     <div className="buttons-area">Buttons
-                    <button onClick={this.handleClick}>Restart</button>
+                    <button onClick={this.restart}>Restart</button>
                         <input id="answer" type="text" placeholder="Put value here" title="That&apos;s what this widget is"></input>
-                        <button id="check-answer" title="Lebron James">Check</button>
+                        <button id="check-answer" title="Lebron James"  onClick={this.handleAnswer}>Check</button>
                         <label className="switch" htmlFor="checkbox">
                             <input type="checkbox" id="checkbox" />
                             <div className="slider round"></div>
