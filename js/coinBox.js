@@ -22,6 +22,8 @@ class CoinBox extends React.Component {
         this.restart = this.restart.bind(this);
 
         this.handleAnswer = this.handleAnswer.bind(this);
+
+        this.spawnCoin = this.spawnCoin.bind(this);
     }
 
     setUpCoins() {
@@ -30,15 +32,6 @@ class CoinBox extends React.Component {
         // Generate random number of coins
         const numCoins = Math.floor(Math.random() * (this.state.max - this.state.min + 1) + this.state.min);
         console.log("random: ", numCoins);
-
-        let tempRefs = []
-        for (let i in numCoins) {
-            tempRefs.push(React.createRef());
-        }
-
-        this.setState({
-            coinRefs: tempRefs
-        });
 
         // store values in temp
         let temp = [];
@@ -183,6 +176,8 @@ class CoinBox extends React.Component {
             this.setUpCoins();
             this.setUpFloorBox();
             this.setUpTooltips();
+        } else if (this.state.coins !== prevState.coins) {
+            this.setUpTooltips();
         }
     }
 
@@ -238,6 +233,78 @@ class CoinBox extends React.Component {
         }
     }
 
+    spawnCoin() {
+        // Setting id as length is same as adding new coin 
+        let id = this.state.coins.length;
+
+        this.setState({
+            coins: [...this.state.coins, id]
+        });
+
+       // Generate random coin
+        let randomizeCoin = Math.floor(Math.random() * (4 - 1 + 1) + 1);
+        let randomCoin = "";
+        let dollarValue = "";
+        if (randomizeCoin === 4) {
+            randomCoin = "quarter";
+            dollarValue = "25";
+        } else if (randomizeCoin === 3) {
+            randomCoin = "dime";
+            dollarValue = "10";
+        } else if (randomizeCoin === 2) {
+            randomCoin = "nickel";
+            dollarValue = "5";
+        } else {
+            randomCoin = "penny";
+            dollarValue = "1";
+        }
+
+        let floor = this.floorDiv;
+        let width = floor.offsetWidth - 20;
+        let height = floor.offsetHeight - 20;
+
+        let randWidth = Math.floor(Math.random() * width);
+        let randHeight = Math.floor(Math.random() * height);
+
+        // makes the coin with that id draggable
+        $(function () {
+            $("#" + "coin" + id).draggable();
+            $("#" + "coin" + id).addClass(randomCoin);
+            $("#" + "coin" + id).attr("dollarValue", dollarValue);
+            $("#" + "coin" + id).attr("title", dollarValue);
+
+            // x is left, y is top
+            $("#" + "coin" + id).css("top", `+=${(height - randHeight)}`);
+            $("#" + "coin" + id).css("left", `+=${(width - randWidth)}`);
+            
+        });
+
+        this.setState({
+            coinPositions: [...this.state.coinPositions, [[(height - randHeight), (width - randWidth)]]]
+        });
+    }
+
+    despawnCoin() {
+        const deleter = document.getElementById("deleter");
+        const index = parseInt(deleter.value);
+
+        if (this.state.coins.includes(index)) {
+            this.setState({
+                coins: this.state.coins.filter((coin) => {
+                    return coin !== index;
+                })
+            });
+
+            this.setState({
+                coinPositions: this.state.coinPositions.filter((_, i) => {
+                    return i !== index;
+                })
+            });
+        }
+    }
+
+    
+
     render() {
         return (
             <div className="game-container">
@@ -245,13 +312,17 @@ class CoinBox extends React.Component {
 
                 <div className="coin-box-container">
                     <div className="buttons-area">Buttons
-                    <button onClick={this.restart}>Restart</button>
+                    
                         <input id="answer" type="text" placeholder="Put value here" title="That&apos;s what this widget is"></input>
                         <button id="check-answer" title="Lebron James" onClick={this.handleAnswer}>Check</button>
                         <label className="switch" htmlFor="checkbox">
                             <input type="checkbox" id="checkbox" />
                             <div className="slider round"></div>
                         </label>
+
+                        <button onClick={this.spawnCoin}>Spawn coin</button>
+                        <input id="deleter" placeholder="Delete something"></input>
+                        <button onClick={() => {this.despawnCoin()}}>Despawn coin</button>
 
                     </div>
 
