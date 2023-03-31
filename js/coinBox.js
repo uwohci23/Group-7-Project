@@ -7,8 +7,7 @@ class CoinBox extends React.Component {
             max: 7,
             min: 3,
             coins: [],
-            lefts: [],
-            tops: [],
+            coinPositions: [],
             floorboxCoins: [],
             count: 0,
             total: 0,
@@ -32,6 +31,15 @@ class CoinBox extends React.Component {
         const numCoins = Math.floor(Math.random() * (this.state.max - this.state.min + 1) + this.state.min);
         console.log("random: ", numCoins);
 
+        let tempRefs = []
+        for (let i in numCoins) {
+            tempRefs.push(React.createRef());
+        }
+
+        this.setState({
+            coinRefs: tempRefs
+        });
+
         // store values in temp
         let temp = [];
         for (let i = 0; i < numCoins; i++) {
@@ -45,7 +53,6 @@ class CoinBox extends React.Component {
             coins: this.state.coins.concat(temp)
         });
 
-
         let floor = this.floorDiv;
         let width = floor.offsetWidth - 20;
         let height = floor.offsetHeight - 20;
@@ -56,8 +63,7 @@ class CoinBox extends React.Component {
         var $this = $(ReactDOM.findDOMNode(this));
         console.log($this[0])
 
-        let tempLefts = []
-        let tempTops = []
+        let tempPos = [];
         let tempTotal = 0;
 
         for (let id of temp) {
@@ -65,9 +71,11 @@ class CoinBox extends React.Component {
 
             let randWidth = Math.floor(Math.random() * width);
             let randHeight = Math.floor(Math.random() * height);
-            tempLefts.push((width - randWidth));
-            tempTops.push((height - randHeight));
 
+            // Store position of coin as array of tuples [[top1, left1], [top2, left2], ...]
+            tempPos.push([[(height - randHeight), (width - randWidth)]]);
+            
+            
             // Generate random coin
             let randomizeCoin = Math.floor(Math.random() * (4 - 1 + 1) + 1);
             let randomCoin = "";
@@ -94,31 +102,36 @@ class CoinBox extends React.Component {
                 $("#" + "coin" + id).draggable();
                 $("#" + "coin" + id).addClass(randomCoin);
                 $("#" + "coin" + id).attr("dollarValue", dollarValue);
+                $("#" + "coin" + id).attr("title", dollarValue);
+
+                // x is left, y is top
                 $("#" + "coin" + id).css("top", `+=${(height - randHeight)}`);
                 $("#" + "coin" + id).css("left", `+=${(width - randWidth)}`);
-                //$("#" + "coin" + id).attr("onClick", function() { $(this).css("cursor", "grabbing")});
-                //$("#" + "coin" + id).css("content", "url(../art/coinbox/penny.png");
+                
             });
         }
 
         this.setState({ total: tempTotal });
 
+        this.setState({
+            coinPositions: tempPos
+        });
+
+        console.log(tempPos)
     }
 
     setUpFloor() {
         let floor = document.getElementById("floor");
         var droppedCoin = "";
         
-            $("#floor").droppable({
-                drop: function (event, ui) {
-                    droppedCoin = ui.draggable[0].id;
-                    $('#floor').attr("data-coin", droppedCoin);
-                    
-                },
-            });
-        
 
-        console.log("DROPPED: ", droppedCoin)
+        $("#floor").droppable({
+            drop: function (event, ui) {
+                droppedCoin = ui.draggable[0].id;
+                $('#floor').attr("data-coin", droppedCoin);
+                console.log("DROPPED: ", droppedCoin)
+            },
+        });  
     }
 
     setUpFloorBox() {
@@ -128,28 +141,28 @@ class CoinBox extends React.Component {
         console.log(ball2);
 
         let droppedCoin = "";
-        $(function () {
-            $("#floorbox").droppable({
-                drop: function (event, ui) {
-                    droppedCoin = ui.draggable[0].id;
-                    $('#floorbox').attr("data-coin", droppedCoin);
-                    console.log("DROPPED: ", droppedCoin)
-                },
-            });
+        
+        $("#floorbox").droppable({
+            drop: function (event, ui) {
+                droppedCoin = ui.draggable[0].id;
+                $('#floorbox').attr("data-coin", droppedCoin);
+                console.log("DROPPED: ", droppedCoin)
+            },
         });
+        
     }
 
     setUpTooltips() {
-        $(function () {
-            $("#answer").tooltip();
-            $("#check-answer").tooltip();
-            $(".coin").tooltip({
-                hide: { effect: "explode", duration: 1000 }
-            });
+        
+        $("#answer").tooltip();
+        $("#check-answer").tooltip();
+        $(".coin").tooltip({
+            hide: { effect: "explode", duration: 1000 }
         });
+        
     }
 
-    // This is supposed to trigger every rerender
+    // Triggers on intial render
     componentDidMount() {
         console.log("MOUNT")
 
@@ -161,17 +174,16 @@ class CoinBox extends React.Component {
         
     }
 
+    // Triggers on every render (including initial render)
     componentDidUpdate(prevProps, prevState) {
         console.log("UPDATE")
+
+        // Setup everything again on restart
         if (this.state.count !== prevState.count) {
             this.setUpCoins();
             this.setUpFloorBox();
             this.setUpTooltips();
         }
-    }
-
-    handleDrop() {
-        console.log("big dropper")
     }
 
     restart() {
@@ -192,6 +204,40 @@ class CoinBox extends React.Component {
         }
     }
 
+    handleCoinDrop(index) {
+        const coin = document.getElementById("coin" + index);
+        const coinRect = coin.getBoundingClientRect();
+
+        console.log(`${coinRect.x}, ${coinRect.y}`)
+
+        let tempPos = this.state.coinPositions;
+        tempPos[index] = [coinRect.x, coinRect.y];
+        this.setState({
+            coinPositions: tempPos
+        });
+
+        const fromFloorBox = document.getElementById("floorbox");
+        const rect = fromFloorBox.getBoundingClientRect();
+        console.log(rect.x, rect.y);
+        if (coinRect.x > rect.left && coinRect.x < rect.right && coinRect.y > rect.top && coinRect.y < rect.bottom) {
+            fromFloorBox.innerHTML = `Coin ${index} here!`;
+            if (!this.state.floorboxCoins.includes(index)) {
+                this.setState(prevState => ({
+                    floorboxCoins: [...prevState.floorboxCoins, index]
+                }));
+            }
+        } else {
+            fromFloorBox.innerHTML = "nothing";
+            if (this.state.floorboxCoins.includes(index)) {
+                this.setState({
+                    floorboxCoins: this.state.floorboxCoins.filter((coin) => {
+                        return coin !== index;
+                    })
+                });
+            }
+        }
+    }
+
     render() {
         return (
             <div className="game-container">
@@ -201,7 +247,7 @@ class CoinBox extends React.Component {
                     <div className="buttons-area">Buttons
                     <button onClick={this.restart}>Restart</button>
                         <input id="answer" type="text" placeholder="Put value here" title="That&apos;s what this widget is"></input>
-                        <button id="check-answer" title="Lebron James"  onClick={this.handleAnswer}>Check</button>
+                        <button id="check-answer" title="Lebron James" onClick={this.handleAnswer}>Check</button>
                         <label className="switch" htmlFor="checkbox">
                             <input type="checkbox" id="checkbox" />
                             <div className="slider round"></div>
@@ -237,9 +283,7 @@ class CoinBox extends React.Component {
                                     key={index}
                                     id={"coin" + coin.toString()}
                                     className="coin"
-                                    title="This is a coin"
-                                    //onClick={$(function() { $(this).css("cursor", "grabbing")})}
-                                //style={`top: ${this.state.tops[index+1]} + px; left: ${this.state.lefts[index+1]}  + px;`}
+                                    onMouseUp={() => {this.handleCoinDrop(index)}}
                                 >
                                 </div>
                             );
