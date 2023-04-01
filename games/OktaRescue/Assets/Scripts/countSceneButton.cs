@@ -46,6 +46,7 @@ public class countSceneButton : MonoBehaviour
             eventM.showCorrectPop();
         }
         else {
+            eventM.showIncorrectPop();
         }
     }
 

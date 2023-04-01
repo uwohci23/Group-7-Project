@@ -6,6 +6,7 @@ using UnityEngine;
 public class oktaSpawn : MonoBehaviour
 {
     public GameObject okta;
+    public GameObject oktaOutline;
     private int maxOkta = 18;
     private List<GameObject> oktaList;
 
@@ -47,5 +48,29 @@ public class oktaSpawn : MonoBehaviour
 
             counter ++;
         }
+    }
+
+    public void generateOutlineOkta(int needToSave) {
+        Vector2 initalPos = new Vector2(7f, 3f);
+        Vector2 pos = initalPos;
+        float addX = 1.5f;
+        float addY = -1.5f;
+
+        for (int i = 0; i < needToSave; i ++) {
+            if (i % 2 == 0 && i != 0) {
+                pos = new Vector2(initalPos.x, initalPos.y + addY * (i / 2));
+            }
+            else if (i % 2 == 1){
+                pos = new Vector2(initalPos.x + addX, initalPos.y + addY * (i / 2));
+            }
+            else {
+                pos = initalPos;
+            }
+            Debug.Log(pos);
+
+            Instantiate(oktaOutline, pos, transform.rotation);
+
+        }
+
     }
 }

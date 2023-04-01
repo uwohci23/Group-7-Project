@@ -40,8 +40,6 @@ public class okta : MonoBehaviour
 
     // need to find the position first and not update it per frame
     // vecotr3 movetowards with target position need to be update per fram
-
-
     // determine where okta should be moved to
     // used to select and unselect okta
     public void MoveOktaTo()
