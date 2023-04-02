@@ -96,12 +96,15 @@ class CoinBox extends React.Component {
             // makes the coin with that id draggable
             $(function () {
                 $("#" + "coin" + id).mouseover(
-                    function() {
-                        $( this ).css("cursor", "grab");
+                    function () {
+                        $(this).css("cursor", "grab");
                     },
 
                 );
-                $("#" + "coin" + id).draggable({ cursor: "grabbing", containment: "#playable-area" });
+                $("#" + "coin" + id).draggable({
+                    cursor: "grabbing",
+                    containment: "#playable-area"
+                });
                 $("#" + "coin" + id).addClass(randomCoin);
                 $("#" + "coin" + id).attr("dollarValue", dollarValue);
                 $("#" + "coin" + id).attr("title", dollarValue);
@@ -132,7 +135,30 @@ class CoinBox extends React.Component {
                 droppedCoin = ui.draggable[0].id;
                 $('#floor').attr("data-coin", droppedCoin);
                 console.log("DROPPED: ", droppedCoin)
-            },
+                // check for collisions with other draggable elements
+                var draggable = ui.draggable;
+                var draggableOffset = draggable.offset();
+                var draggableWidth = draggable.outerWidth();
+                var draggableHeight = draggable.outerHeight();
+                $(".coin").each(function (index, element) {
+                    if (draggable[0] !== element) { // ignore self
+                        var elementOffset = $(element).offset();
+                        var elementWidth = $(element).outerWidth();
+                        var elementHeight = $(element).outerHeight();
+                        if (draggableOffset.left + draggableWidth > elementOffset.left &&
+                            draggableOffset.top + draggableHeight > elementOffset.top &&
+                            draggableOffset.left < elementOffset.left + elementWidth &&
+                            draggableOffset.top < elementOffset.top + elementHeight) {
+                            // overlapping detected, prevent drop
+                            draggable.draggable("option", "revert", true);
+                            return false;
+                        } else {
+                            draggable.draggable("option", "revert", false);
+                            return true;
+                        }
+                    }
+                });
+            }
         });
     }
 
@@ -155,7 +181,7 @@ class CoinBox extends React.Component {
     }
 
     setUpTooltips() {
-        
+
         $("#answer").tooltip();
         $("#check-answer").tooltip();
         $(".coin").tooltip({
@@ -351,8 +377,8 @@ class CoinBox extends React.Component {
                         <button id="check-answer" title="Click this to submit your answer!" onClick={this.handleAnswer}>Check</button>
 
                         <label className="switch">
-                            <input type="checkbox" id="toggle" onClick={this.toggleTooltips}/>
-                                <span className="slider round"></span>
+                            <input type="checkbox" id="toggle" onClick={this.toggleTooltips} />
+                            <span className="slider round"></span>
                         </label>
 
                         <button onClick={this.spawnCoin}>Spawn coin</button>
