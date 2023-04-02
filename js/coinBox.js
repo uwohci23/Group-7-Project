@@ -173,9 +173,32 @@ class CoinBox extends React.Component {
         $("#floorbox").droppable({
             drop: function (event, ui) {
                 droppedCoin = ui.draggable[0].id;
-                $('#floorbox').attr("data-coin", droppedCoin);
+                $('#floor').attr("data-coin", droppedCoin);
                 console.log("DROPPED: ", droppedCoin)
-            },
+                // check for collisions with other draggable elements
+                var draggable = ui.draggable;
+                var draggableOffset = draggable.offset();
+                var draggableWidth = draggable.outerWidth();
+                var draggableHeight = draggable.outerHeight();
+                $(".coin").each(function (index, element) {
+                    if (draggable[0] !== element) { // ignore self
+                        var elementOffset = $(element).offset();
+                        var elementWidth = $(element).outerWidth();
+                        var elementHeight = $(element).outerHeight();
+                        if (draggableOffset.left + draggableWidth > elementOffset.left &&
+                            draggableOffset.top + draggableHeight > elementOffset.top &&
+                            draggableOffset.left < elementOffset.left + elementWidth &&
+                            draggableOffset.top < elementOffset.top + elementHeight) {
+                            // overlapping detected, prevent drop
+                            draggable.draggable("option", "revert", true);
+                            return false;
+                        } else {
+                            draggable.draggable("option", "revert", false);
+                            return true;
+                        }
+                    }
+                });
+            }
         });
 
     }
