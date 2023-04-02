@@ -2,15 +2,14 @@
     aspect-ratio: 16 / 9;
     width: 50rem;
     height: 20rem;
-    margin-top: 20rem;
+    /* margin-top: 20rem; */
     margin-left: 35rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    
+    margin-bottom: 20rem;
 }
 
 .coin-box-container {
+    border-style: solid;
+    border-color: #000;
     display: grid;
     grid-auto-rows: auto;
 }
@@ -21,6 +20,14 @@
     width: 100%;
     height: 100%;
     background-color: blue;
+}
+
+.playable-area {
+    grid-row-start: 2;
+    grid-column-start: span 2;
+    width: 100%;
+    height: 100%;
+    display: grid;
 }
 
 .from-floor-area {
@@ -48,7 +55,7 @@
     grid-row-start: 2;
     grid-row-end: 5;
     grid-column-start: 2;
-    
+
     width: 100%;
     height: 40rem;
     background-color: green;
@@ -58,7 +65,7 @@
 .a-coin-box {
     width: 20rem;
     height: 10rem;
-    border-style:solid;
+    border-style: solid;
     border-color: #000;
     border-radius: 2%;
     background-color: aqua;
@@ -70,84 +77,89 @@
     position: absolute;
     left: 0;
     top: 0;
-    cursor: grab;
+    /* cursor: grab; */
 }
 
 .quarter {
     content: url("../art/coinBox/quarter.png");
     width: 4rem;
-    height:auto;
+    height: auto;
 }
 
 .dime {
-    content:url("../art/coinBox/dime.png");
+    content: url("../art/coinBox/dime.png");
     width: 3rem;
-    height:auto;
+    height: auto;
 }
 
 .nickel {
-    content:url("../art/coinBox/nickel.png");
+    content: url("../art/coinBox/nickel.png");
     width: 3.5rem;
-    height:auto;
+    height: auto;
 }
 
 .penny {
-    content:url("../art/coinBox/penny.png");
+    content: url("../art/coinBox/penny.png");
     width: 2rem;
-    height:auto;
+    height: auto;
 }
 
 
 
 /* Toggle slider styling */
 .switch {
-    display: inline-block;
-    height: 34px;
     position: relative;
+    display: inline-block;
     width: 60px;
-  }
-  
-  .switch input {
-    display:none;
-  }
-  
-  .slider {
-    background-color: #ccc;
-    bottom: 0;
-    cursor: pointer;
-    left: 0;
+    height: 34px;
+}
+
+.switch input {
+    display: none;
+}
+
+.slider {
     position: absolute;
-    right: 0;
+    cursor: pointer;
     top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
     transition: .4s;
-  }
-  
-  .slider:before {
-    background-color: #fff;
-    bottom: 4px;
+}
+
+.slider:before {
+    position: absolute;
     content: "";
     height: 26px;
-    left: 4px;
-    position: absolute;
-    transition: .4s;
     width: 26px;
-  }
-  
-  input:checked + .slider {
-    background-color: #66bb6a;
-  }
-  
-  input:checked + .slider:before {
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+input:checked+.slider {
+    background-color: #2196F3;
+}
+
+input:focus+.slider {
+    box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked+.slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
     transform: translateX(26px);
-  }
-  
-  .slider.round {
+}
+
+.slider.round {
     border-radius: 34px;
-  }
-  
-  .slider.round:before {
+}
+
+.slider.round:before {
     border-radius: 50%;
-  }
-
-
-
+}

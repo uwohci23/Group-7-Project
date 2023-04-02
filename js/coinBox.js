@@ -11,7 +11,8 @@ class CoinBox extends React.Component {
             floorboxCoins: [],
             count: 0,
             total: 0,
-            win: false
+            win: false,
+            tooltipsOn: true
         };
 
         this.setUpCoins = this.setUpCoins.bind(this);
@@ -24,11 +25,13 @@ class CoinBox extends React.Component {
         this.handleAnswer = this.handleAnswer.bind(this);
 
         this.spawnCoin = this.spawnCoin.bind(this);
+
+        this.toggleTooltips = this.toggleTooltips.bind(this);
     }
 
     setUpCoins() {
         console.log("SETTING UP COINS");
-        
+
         // Generate random number of coins
         const numCoins = Math.floor(Math.random() * (this.state.max - this.state.min + 1) + this.state.min);
         console.log("random: ", numCoins);
@@ -47,8 +50,8 @@ class CoinBox extends React.Component {
         });
 
         let floor = this.floorDiv;
-        let width = floor.offsetWidth - 20;
-        let height = floor.offsetHeight - 20;
+        let width = floor.offsetWidth - 100;
+        let height = floor.offsetHeight - 100;
 
         console.log("FLORR: ", floor)
 
@@ -67,8 +70,8 @@ class CoinBox extends React.Component {
 
             // Store position of coin as array of tuples [[top1, left1], [top2, left2], ...]
             tempPos.push([[(height - randHeight), (width - randWidth)]]);
-            
-            
+
+
             // Generate random coin
             let randomizeCoin = Math.floor(Math.random() * (4 - 1 + 1) + 1);
             let randomCoin = "";
@@ -88,11 +91,17 @@ class CoinBox extends React.Component {
             }
 
             tempTotal += parseInt(dollarValue);
-            
+
 
             // makes the coin with that id draggable
             $(function () {
-                $("#" + "coin" + id).draggable();
+                $("#" + "coin" + id).mouseover(
+                    function() {
+                        $( this ).css("cursor", "grab");
+                    },
+
+                );
+                $("#" + "coin" + id).draggable({ cursor: "grabbing", containment: "#playable-area" });
                 $("#" + "coin" + id).addClass(randomCoin);
                 $("#" + "coin" + id).attr("dollarValue", dollarValue);
                 $("#" + "coin" + id).attr("title", dollarValue);
@@ -100,7 +109,7 @@ class CoinBox extends React.Component {
                 // x is left, y is top
                 $("#" + "coin" + id).css("top", `+=${(height - randHeight)}`);
                 $("#" + "coin" + id).css("left", `+=${(width - randWidth)}`);
-                
+
             });
         }
 
@@ -116,7 +125,7 @@ class CoinBox extends React.Component {
     setUpFloor() {
         let floor = document.getElementById("floor");
         var droppedCoin = "";
-        
+
 
         $("#floor").droppable({
             drop: function (event, ui) {
@@ -124,7 +133,7 @@ class CoinBox extends React.Component {
                 $('#floor').attr("data-coin", droppedCoin);
                 console.log("DROPPED: ", droppedCoin)
             },
-        });  
+        });
     }
 
     setUpFloorBox() {
@@ -134,7 +143,7 @@ class CoinBox extends React.Component {
         console.log(ball2);
 
         let droppedCoin = "";
-        
+
         $("#floorbox").droppable({
             drop: function (event, ui) {
                 droppedCoin = ui.draggable[0].id;
@@ -142,7 +151,7 @@ class CoinBox extends React.Component {
                 console.log("DROPPED: ", droppedCoin)
             },
         });
-        
+
     }
 
     setUpTooltips() {
@@ -150,21 +159,41 @@ class CoinBox extends React.Component {
         $("#answer").tooltip();
         $("#check-answer").tooltip();
         $(".coin").tooltip({
-            hide: { effect: "explode", duration: 1000 }
+            show: { effect: "blind", duration: 200, delay: 500 },
+            hide: { effect: "blind", duration: 200 }
         });
-        
+
+    }
+
+    toggleTooltips() {
+        this.setState({ tooltipsOn: !this.state.tooltipsOn });
+        const toggle = document.getElementById("toggle");
+
+        if (tooltipsOn) {
+            $("#answer").tooltip();
+            $("#check-answer").tooltip();
+            $(".coin").tooltip({
+                show: { effect: "blind", duration: 200, delay: 500 },
+                hide: { effect: "blind", duration: 200 }
+            });
+        } else {
+            $("#answer").tooltip("destroy");
+            $("#check-answer").tooltip("destroy");
+            $(".coin").tooltip("destroy");
+        }
     }
 
     // Triggers on intial render
     componentDidMount() {
         console.log("MOUNT")
 
+
         this.setUpCoins();
         this.setUpFloor();
         this.setUpFloorBox();
         this.setUpTooltips();
 
-        
+
     }
 
     // Triggers on every render (including initial render)
@@ -178,12 +207,14 @@ class CoinBox extends React.Component {
             this.setUpTooltips();
         } else if (this.state.coins !== prevState.coins) {
             this.setUpTooltips();
+        } else if (this.state.tooltipsOn !== prevState.tooltipsOn) {
+
         }
     }
 
     restart() {
         let empty = [];
-        this.setState({ 
+        this.setState({
             coins: empty,
             total: 0,
             count: this.state.count + 1
@@ -241,7 +272,7 @@ class CoinBox extends React.Component {
             coins: [...this.state.coins, id]
         });
 
-       // Generate random coin
+        // Generate random coin
         let randomizeCoin = Math.floor(Math.random() * (4 - 1 + 1) + 1);
         let randomCoin = "";
         let dollarValue = "";
@@ -276,7 +307,7 @@ class CoinBox extends React.Component {
             // x is left, y is top
             $("#" + "coin" + id).css("top", `+=${(height - randHeight)}`);
             $("#" + "coin" + id).css("left", `+=${(width - randWidth)}`);
-            
+
         });
 
         this.setState({
@@ -303,62 +334,69 @@ class CoinBox extends React.Component {
         }
     }
 
-    
+    exchangeCoins() {
+
+    }
+
 
     render() {
         return (
-            <div className="game-container">
-                <PopupMenu name="Coin Box" onClick={this.props.onClick} restart={this.restart}/>
+            <div id="game-container" className="game-container">
+                <PopupMenu name="Coin Box" onClick={this.props.onClick} restart={this.restart} />
 
                 <div className="coin-box-container">
                     <div className="buttons-area">Buttons
-                    
-                        <input id="answer" type="text" placeholder="Put value here" title="That&apos;s what this widget is"></input>
-                        <button id="check-answer" title="Lebron James" onClick={this.handleAnswer}>Check</button>
-                        <label className="switch" htmlFor="checkbox">
-                            <input type="checkbox" id="checkbox" />
-                            <div className="slider round"></div>
+
+                        <input id="answer" type="text" placeholder="How many coins are on the floor?" title="Type into the box the total value of the coins on the floor!"></input>
+                        <button id="check-answer" title="Click this to submit your answer!" onClick={this.handleAnswer}>Check</button>
+
+                        <label className="switch">
+                            <input type="checkbox" id="toggle" onClick={this.toggleTooltips}/>
+                                <span className="slider round"></span>
                         </label>
 
                         <button onClick={this.spawnCoin}>Spawn coin</button>
                         <input id="deleter" placeholder="Delete something"></input>
-                        <button onClick={() => {this.despawnCoin()}}>Despawn coin</button>
+                        <button onClick={() => { this.despawnCoin() }}>Despawn coin</button>
 
                     </div>
 
-                    <div className="from-floor-area">Exchange coins from floor
-                        <div id="floorbox" className="a-coin-box" data-coin="" onMouseUp={this.handleDrop}>
-                            <p>thing</p>
-                        </div>
-                    </div>
-
-                    <div className="from-bank-area">Exchange coins from bank
-                        <div id="bankbox" className="a-coin-box">
-                            thing
+                    <div id="playable-area" className="playable-area">
+                        <div className="from-floor-area">Exchange coins from floor
+                            <div id="floorbox" className="a-coin-box" data-coin="">
+                                <p>thing</p>
+                            </div>
                         </div>
 
-                    </div>
+                        <div className="from-bank-area">Exchange coins from bank
+                            <button id="exchange-coins">Exhange coins</button>
+                            <div id="bankbox" className="a-coin-box">
+                                thing
+                            </div>
 
-                    <div className="bank-account" >Coins from bank
-                        <div id="accountbox" className="a-coin-box">
-                            thing
                         </div>
 
-                    </div>
+                        <div className="bank-account" >Coins from bank
+                            <div id="accountbox" className="a-coin-box">
+                                thing
+                            </div>
 
-                    <div id="floor" className="floor" ref={(div) => { this.floorDiv = div; }}>Floor
-                        {this.state.coins.map((coin, index) => {
-                            console.log("coin" + coin.toString());
-                            return (
-                                <div
-                                    key={index}
-                                    id={"coin" + coin.toString()}
-                                    className="coin"
-                                    onMouseUp={() => {this.handleCoinDrop(index)}}
-                                >
-                                </div>
-                            );
-                        })}
+                        </div>
+
+                        <div id="floor" className="floor" ref={(div) => { this.floorDiv = div; }}>Floor
+                            {this.state.coins.map((coin, index) => {
+                                console.log("coin" + coin.toString());
+                                return (
+                                    <div
+                                        key={index}
+                                        id={"coin" + coin.toString()}
+                                        className="coin"
+                                        onMouseUp={() => { this.handleCoinDrop(index) }}
+                                    >
+                                    </div>
+                                );
+                            })}
+                        </div>
                     </div>
                 </div>
             </div>
