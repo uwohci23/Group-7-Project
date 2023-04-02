@@ -9,6 +9,8 @@ TagManager:
   - Tube
   - Selected
   - OktaSpawner
+  - SliderManager
+  - EventManager
   layers:
   - Default
   - TransparentFX

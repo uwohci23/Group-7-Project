@@ -12,11 +12,13 @@ public class logicScript : MonoBehaviour
 {
 
     // totalSavedNum need to be passed to the count scene
-    public static int totalSavedNum { get; set; }
+    public int totalSavedNum;
     public int savedNum;
     public int needToSaveNum;
     public TextMeshProUGUI savedNumText;
     public TextMeshProUGUI needToSavedNumText;
+    public oktaSpawn oktaSpawner;
+
 
     // Start is called before the first frame update
     void Start()
@@ -25,6 +27,9 @@ public class logicScript : MonoBehaviour
         totalSavedNum = 0;
         needToSaveNum = UnityEngine.Random.Range(1, 5);
         needToSavedNumText.text = needToSaveNum.ToString();
+        oktaSpawner = GameObject.FindGameObjectWithTag("OktaSpawner").GetComponent<oktaSpawn>();
+        oktaSpawner.generateOutlineOkta(needToSaveNum);
+
     }
 
     // Update is called once per frame
@@ -53,12 +58,20 @@ public class logicScript : MonoBehaviour
         PlayerPrefs.SetInt("totalSaved", totalSavedNum);
     }
 
+    public string getNeedToSavedNum() {
+        return needToSavedNumText.text;
+    }
+
     public void resetSavedNum() {
         savedNum = 0;
     }
 
     public int getScore() {
         return savedNum;
+    }
+
+    public int getNeedToSave() {
+        return needToSaveNum;
     }
     
 
