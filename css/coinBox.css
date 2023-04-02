@@ -164,3 +164,9 @@ input:checked+.slider:before {
 .slider.round:before {
     border-radius: 50%;
 }
+
+.win-popup {
+    display: none;
+    border-radius: 1rem;
+    box-shadow: 10px 10px gray;
+}

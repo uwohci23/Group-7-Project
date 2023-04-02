@@ -23,6 +23,7 @@ class CoinBox extends React.Component {
         this.restart = this.restart.bind(this);
 
         this.handleAnswer = this.handleAnswer.bind(this);
+        this.handleCloseWinPopup = this.handleCloseWinPopup.bind(this);
 
         this.spawnCoin = this.spawnCoin.bind(this);
 
@@ -31,7 +32,7 @@ class CoinBox extends React.Component {
 
     setUpCoins() {
         console.log("SETTING UP COINS");
-
+    
         // Generate random number of coins
         const numCoins = Math.floor(Math.random() * (this.state.max - this.state.min + 1) + this.state.min);
         console.log("random: ", numCoins);
@@ -250,10 +251,9 @@ class CoinBox extends React.Component {
         console.log("UPDATE")
 
         // Setup everything again on restart
-        if (this.state.count !== prevState.count) {
+        if (this.state.count !== prevState.count || this.state.win) {
+            this.setState({ win: false });
             this.setUpCoins();
-            this.setUpFloorBox();
-            this.setUpTooltips();
         } else if (this.state.coins !== prevState.coins) {
             this.setUpTooltips();
         } else if (this.state.tooltipsOn !== prevState.tooltipsOn) {
@@ -274,9 +274,25 @@ class CoinBox extends React.Component {
         let answer = document.getElementById("answer").value;
         if (parseInt(answer) === this.state.total) {
             console.log("WIN")
+            document.getElementById('win-popup').style.display = "grid";
+            const popup = document.querySelector('#win-popup');
+            popup.showModal();
+
+            let empty = [];
+            this.setState({ 
+                coins: empty,
+                total: 0,
+                win: true 
+            });
         } else {
             console.log("WRONG")
         }
+    }
+
+    handleCloseWinPopup() {
+        document.getElementById('win-popup').style.display = "none";
+        const popup = document.querySelector('#win-popup');
+        popup.close();
     }
 
     handleCoinDrop(index) {
@@ -392,6 +408,9 @@ class CoinBox extends React.Component {
         return (
             <div id="game-container" className="game-container">
                 <PopupMenu name="Coin Box" onClick={this.props.onClick} restart={this.restart} />
+                <dialog id="win-popup" className="win-popup">WIN!
+                    <button onClick={this.handleCloseWinPopup}>OK</button>
+                </dialog>
 
                 <div className="coin-box-container">
                     <div className="buttons-area">Buttons
