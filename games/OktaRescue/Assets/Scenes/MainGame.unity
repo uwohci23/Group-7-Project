@@ -908,6 +908,7 @@ MonoBehaviour:
   needToSaveNum: 0
   savedNumText: {fileID: 778691138}
   needToSavedNumText: {fileID: 490852667}
+  oktaSpawner: {fileID: 0}
 --- !u!1 &1250333531
 GameObject:
   m_ObjectHideFlags: 0
@@ -1737,3 +1738,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   okta: {fileID: 472330708058978852, guid: df9bec67555c74958abe4c7b94835d85, type: 3}
+  oktaOutline: {fileID: 5368939048747982856, guid: b3aa4611f540a48d8bc4ada5b0886722, type: 3}
