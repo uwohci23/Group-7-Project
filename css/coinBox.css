@@ -170,3 +170,9 @@ input:checked+.slider:before {
     border-radius: 1rem;
     box-shadow: 10px 10px gray;
 }
+
+.lose-popup {
+    display: none;
+    border-radius: 1rem;
+    box-shadow: 10px 10px gray;
+}

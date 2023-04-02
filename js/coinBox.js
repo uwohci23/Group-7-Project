@@ -286,12 +286,21 @@ class CoinBox extends React.Component {
             });
         } else {
             console.log("WRONG")
+            document.getElementById('lose-popup').style.display = "grid";
+            const popup = document.querySelector('#lose-popup');
+            popup.showModal();
         }
     }
 
     handleCloseWinPopup() {
         document.getElementById('win-popup').style.display = "none";
         const popup = document.querySelector('#win-popup');
+        popup.close();
+    }
+
+    handleCloseLosePopup() {
+        document.getElementById('lose-popup').style.display = "none";
+        const popup = document.querySelector('#lose-popup');
         popup.close();
     }
 
@@ -410,6 +419,10 @@ class CoinBox extends React.Component {
                 <PopupMenu name="Coin Box" onClick={this.props.onClick} restart={this.restart} />
                 <dialog id="win-popup" className="win-popup">WIN!
                     <button onClick={this.handleCloseWinPopup}>OK</button>
+                </dialog>
+
+                <dialog id="lose-popup" className="lose-popup">Wrong Amount
+                    <button onClick={this.handleCloseLosePopup}>OK</button>
                 </dialog>
 
                 <div className="coin-box-container">
