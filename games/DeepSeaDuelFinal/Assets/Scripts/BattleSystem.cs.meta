@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: a30a804b109170c40b4a94d8c0cc5da3
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - playerPrefab: {instanceID: 0}
+  - enemyPrefab: {instanceID: 0}
+  - playerBeach: {fileID: 8746317251251384974, guid: 9dfd31eb07ed4d94c9c2d04bc947adb7, type: 3}
+  - enemyBeach: {fileID: 1083455533465908970, guid: df70df2561a5e954c92981976d1b6cd5, type: 3}
+  - bubbleGrid: {fileID: 3775040291520351880, guid: c9eea9b07faa2d84eb522f676d6d4dea, type: 3}
+  - playerPoppedBubbleGrid: {instanceID: 0}
+  - enemyPoppedBubbleGrid: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
