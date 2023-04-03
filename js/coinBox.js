@@ -12,7 +12,7 @@ class CoinBox extends React.Component {
             count: 0,
             total: 0,
             win: false,
-            tooltipsOn: true
+            tooltipsOn: true,
         };
 
         this.setUpCoins = this.setUpCoins.bind(this);
@@ -32,7 +32,7 @@ class CoinBox extends React.Component {
 
     setUpCoins() {
         console.log("SETTING UP COINS");
-    
+
         // Generate random number of coins
         const numCoins = Math.floor(Math.random() * (this.state.max - this.state.min + 1) + this.state.min);
         console.log("random: ", numCoins);
@@ -172,6 +172,10 @@ class CoinBox extends React.Component {
         let droppedCoin = "";
 
         $("#floorbox").droppable({
+            accept: ".coin",
+            classes: {
+                "ui-droppable-active": "ui-state-active"
+            },
             drop: function (event, ui) {
                 droppedCoin = ui.draggable[0].id;
                 $('#floor').attr("data-coin", droppedCoin);
@@ -212,24 +216,30 @@ class CoinBox extends React.Component {
             show: { effect: "blind", duration: 200, delay: 500 },
             hide: { effect: "blind", duration: 200 }
         });
+        $("#floor").tooltip();
+        $("#floorbox").tooltip();
 
     }
 
     toggleTooltips() {
-        this.setState({ tooltipsOn: !this.state.tooltipsOn });
-        const toggle = document.getElementById("toggle");
 
-        if (tooltipsOn) {
-            $("#answer").tooltip();
-            $("#check-answer").tooltip();
-            $(".coin").tooltip({
-                show: { effect: "blind", duration: 200, delay: 500 },
-                hide: { effect: "blind", duration: 200 }
-            });
+
+        console.log("TOOLTIPS?: ", this.state.tooltipsOn)
+
+        if (this.state.tooltipsOn) {
+            $("#answer").tooltip("enable");
+            $("#check-answer").tooltip("enable");
+            $(".coin").tooltip("enable");
+            $("#floor").tooltip("enable");
+            $("#floorbox").tooltip("enable");
+            console.log("ENABLED!")
         } else {
-            $("#answer").tooltip("destroy");
-            $("#check-answer").tooltip("destroy");
-            $(".coin").tooltip("destroy");
+            $("#answer").tooltip("disable");
+            $("#check-answer").tooltip("disable");
+            $(".coin").tooltip("disable");
+            $("#floor").tooltip("disable");
+            $("#floorbox").tooltip("disable");
+            console.log("DISABLED!")
         }
     }
 
@@ -257,7 +267,7 @@ class CoinBox extends React.Component {
         } else if (this.state.coins !== prevState.coins) {
             this.setUpTooltips();
         } else if (this.state.tooltipsOn !== prevState.tooltipsOn) {
-
+            this.toggleTooltips();
         }
     }
 
@@ -279,10 +289,10 @@ class CoinBox extends React.Component {
             popup.showModal();
 
             let empty = [];
-            this.setState({ 
+            this.setState({
                 coins: empty,
                 total: 0,
-                win: true 
+                win: true
             });
         } else {
             console.log("WRONG")
@@ -432,7 +442,15 @@ class CoinBox extends React.Component {
                         <button id="check-answer" title="Click this to submit your answer!" onClick={this.handleAnswer}>Check</button>
 
                         <label className="switch">
-                            <input type="checkbox" id="toggle" onClick={this.toggleTooltips} />
+                            <input type="checkbox" id="toggle" 
+                                onChange={
+                                    () => {this.setState(prevState => ({
+                                            tooltipsOn: !prevState.tooltipsOn,
+                                        })
+                                    )}
+                                }
+                                checked={this.state.tooltipsOn}
+                            />
                             <span className="slider round"></span>
                         </label>
 
@@ -444,7 +462,7 @@ class CoinBox extends React.Component {
 
                     <div id="playable-area" className="playable-area">
                         <div className="from-floor-area">Exchange coins from floor
-                            <div id="floorbox" className="a-coin-box" data-coin="">
+                            <div id="floorbox" className="a-coin-box" data-coin="" title="Put the coins you want to exchange over here!">
                                 <p>thing</p>
                             </div>
                         </div>
@@ -464,7 +482,7 @@ class CoinBox extends React.Component {
 
                         </div>
 
-                        <div id="floor" className="floor" ref={(div) => { this.floorDiv = div; }}>Floor
+                        <div id="floor" className="floor" ref={(div) => { this.floorDiv = div; }} title="You can move around coins by clicking and dragging with the mouse!">Floor
                             {this.state.coins.map((coin, index) => {
                                 console.log("coin" + coin.toString());
                                 return (
