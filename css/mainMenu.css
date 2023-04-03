@@ -1,28 +1,55 @@
+html,
+body {
+    font-family: "Comic Neue", "sans-serif";
+    max-width: 100%;
+    max-height: 100%;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+}
+
 #menu {
     display: grid;
-    height: 100vh;
+    min-height: 100vh;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
 }
 
 .btn-grid {
-    font-size: 30px;
+    font-size: 35px;
+}
+/* 
+#menuTitle {
+    position: absolute;
+    grid-row-start: 0;
+    grid-row-end: 1;
 }
 
 #dsd-grid {
-    grid-column: 1;
-    grid-row: 1;
+    grid-column-start: 0;
+    grid-column-end: 1;
+    grid-row-start: 1;
+    grid-row-end: 2;
 }
 
 #gg-grid {
-    grid-column: 2;
-    grid-row: 1;
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 1;
+    grid-row-end: 2;
 }
 
 #cb-grid {
-    grid-column: 1;
-    grid-row: 2;
+    grid-column-start: 0;
+    grid-column-end: 1;
+    grid-row-start: 2;
+    grid-row-end: 3;
 }
 
 #or-grid {
-    grid-column: 2;
-    grid-row: 2;
-}
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 2;
+    grid-row-end: 3;
+} */

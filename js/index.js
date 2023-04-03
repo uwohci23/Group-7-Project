@@ -24,7 +24,7 @@ class Root extends React.Component {
         let game
         switch (this.state.gameNum) {
             case 0:
-                game = <MainMenu onClick={this.changeGameNum} />
+                game = <MainMenu onGameNum={this.changeGameNum} />
                 break;
             case 1:
                 game = <DeepSeaDuel onClick={this.changeGameNum} />
