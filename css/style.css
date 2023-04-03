@@ -1,4 +1,9 @@
 html,
 body {
     margin: 0px;
+    overflow-y: hidden;
+}
+
+iframe {
+    border: 0;
 }
