@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Cow : MonoBehaviour {
@@ -8,10 +9,10 @@ public class Cow : MonoBehaviour {
 	private Camera main;
 	private BoxCollider2D boxCollider2D;
 	private SpriteRenderer sr;
-	public Sprite cowSprite, selectedSprite;
+	public Sprite cowSprite, selectedSprite, groupedSprite;
 
 	private Vector3 mousePos, clickPos, groupPos;
-	public float leftBoundary, rightBoundary;
+	public float leftBoundary, rightBoundary, bottomBoundary;
 	public float speed = 25f;
 	private bool isDown = false;
 	private bool isSelected = false;
@@ -32,6 +33,7 @@ public class Cow : MonoBehaviour {
 			transform.position = Vector2.MoveTowards(transform.position, groupPos, speed * Time.deltaTime);
 
 			if (transform.position == groupPos) {
+				sr.sprite = groupedSprite;
 				sr.flipX = true;
 				Destroy(this);
 			}
@@ -85,7 +87,7 @@ public class Cow : MonoBehaviour {
 		float height = Camera.main.orthographicSize;
 		float width = height * Camera.main.aspect;
 
-		if (transform.position.x <= -width + leftBoundary || transform.position.x >= width - rightBoundary)
+		if (transform.position.x <= -width + leftBoundary || transform.position.x >= width - rightBoundary || transform.position.y <= -height + bottomBoundary)
 			transform.position = clickPos;
 		else {
 			Collider2D[] colliders = Physics2D.OverlapBoxAll(transform.position, boxCollider2D.size * 0.5f, 0f);
