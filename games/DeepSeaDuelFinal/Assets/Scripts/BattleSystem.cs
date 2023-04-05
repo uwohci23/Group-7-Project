@@ -23,9 +23,11 @@ public class BattleSystem : MonoBehaviour
     private int sum = 10;
     private int playerSum = 0;
     private int enemySum = 0;
+    public UnitCurrentSum playerSumText;
+    public UnitCurrentSum enemySumText; 
 
-    Unit playerUnit;
-    Unit enemyUnit;
+    //Unit playerUnit;
+    //Unit enemyUnit;
 
     public BattleState state;
 
@@ -53,8 +55,8 @@ public class BattleSystem : MonoBehaviour
         //enemyUnit = enemyGO.GetComponent<Unit>();
 
         bubbleGrid = Instantiate(bubbleGrid);
-        Instantiate(playerPoppedBubbleGrid);
-        Instantiate(enemyPoppedBubbleGrid);
+        playerPoppedBubbleGrid = Instantiate(playerPoppedBubbleGrid);
+        enemyPoppedBubbleGrid = Instantiate(enemyPoppedBubbleGrid);
         SetupBubbles();
 
         state = BattleState.PLAYERTURN;
@@ -70,68 +72,98 @@ public class BattleSystem : MonoBehaviour
         {
             BubbleUnit bubble_component = bubble.GetComponent<BubbleUnit>();
             bubble_component.system = this;
-            Debug.Log("here");
         }
-        Debug.Log("done");
     }
 
-    void setColliderFalse(GameObject beach)
+    void SetColliderFalse(GameObject beach)
     {
         BoxCollider2D obj = beach.transform.GetChild(1).GetComponent<BoxCollider2D>();
         obj.gameObject.SetActive(false);
     }
 
-    void setColliderActive(GameObject beach)
+    void SetColliderActive(GameObject beach)
     {
         BoxCollider2D obj = beach.transform.GetChild(1).GetComponent<BoxCollider2D>();
         obj.gameObject.SetActive(true);
     }
 
-    public void changeTurn(int value)
+    public void ChangeTurn(int value)
     {
-        Debug.Log("change turn");
         if (state == BattleState.PLAYERTURN)
         {
             // add value of the bubble to player's current sum
             playerSum = playerSum + value;
             // remove bubble from bubble grid and add to player's beach
             DeleteNumber(value, playerBeach);
+            PlayerPoppedBubbleGrid ppbg = playerPoppedBubbleGrid.GetComponent<PlayerPoppedBubbleGrid>();
+            ppbg.AddBubble(value);
+            // update text
+            playerSumText.ChangeText("Current Sum: " + playerSum.ToString());
+
+            // check if game is won
+            bool check = CheckSum(playerSum);
+            if (check) {
+                Debug.Log("player won");
+            }
+            // change turn
+            EnemyTurn();
+            state = BattleState.ENEMYTURN;
         }
-        if (state == BattleState.ENEMYTURN)
+        else if (state == BattleState.ENEMYTURN)
         {
-            Debug.Log("this is enemy turn");
+            enemySum = enemySum + value;
+
+            // remove bubble from bubble grid
+            DeleteNumber(value, enemyBeach);
+            // add bubble
+            EnemyPoppedBubbleGrid epbg = enemyPoppedBubbleGrid.GetComponent<EnemyPoppedBubbleGrid>();
+            epbg.AddBubble(value);
+            // update text
+            enemySumText.ChangeText("Current Sum: " + enemySum.ToString());
+
+            // check if game is won
+            bool check = CheckSum(enemySum);
+            if (check)
+            {
+                Debug.Log("enemy won");
+            }
+
+            state = BattleState.PLAYERTURN;
+            PlayerTurn();
+        }
+        else if (state == BattleState.WON)
+        {
+            Debug.Log("out of turns");
         }
     }
 
-    private void CheckSum(int currentSum)
+    private bool CheckSum(int currentSum)
     {
         if (currentSum == sum)
         {
-            Debug.Log("done");
+            Debug.Log("WON GAME");
             state = BattleState.WON;
+            return true;
         }
+        return false;
     }
 
     private void DeleteNumber(int value, GameObject beach)
     {
         BubbleGridManager bgm = bubbleGrid.GetComponent<BubbleGridManager>();
         bgm.DeleteBubble(value);
-        // access the bubblegridmanager
-        // delete the number referenced
-        // add to beach
     }
 
     private void PlayerTurn()
     {
-        //set reference to enemy collider false
-        Debug.Log("Starting player turn logic.");
-        setColliderActive(playerBeach);
-        setColliderFalse(enemyBeach);
+        SetColliderActive(playerBeach);
+        SetColliderFalse(enemyBeach);
     }
 
     void EnemyTurn()
     {
-        // pass
+        SetColliderActive(enemyBeach);
+        SetColliderFalse(playerBeach);
     }
 
 }
