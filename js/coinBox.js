@@ -425,76 +425,73 @@ class CoinBox extends React.Component {
 
     render() {
         return (
-            <div id="game-container" className="game-container">
-                <PopupMenu name="Coin Box" onClick={this.props.onClick} restart={this.restart} />
-                <dialog id="win-popup" className="win-popup">WIN!
-                    <button onClick={this.handleCloseWinPopup}>OK</button>
-                </dialog>
+            <div className="main-container">
+                <div id="game-container" className="game-container">
+                    <PopupMenu name="Coin Box" onClick={this.props.onClick} restart={this.restart} />
+                    <dialog id="win-popup" className="win-popup">WIN!
+                        <button onClick={this.handleCloseWinPopup}>OK</button>
+                    </dialog>
 
-                <dialog id="lose-popup" className="lose-popup">Wrong Amount
-                    <button onClick={this.handleCloseLosePopup}>OK</button>
-                </dialog>
+                    <dialog id="lose-popup" className="lose-popup">Wrong Amount
+                        <button onClick={this.handleCloseLosePopup}>OK</button>
+                    </dialog>
 
-                <div className="coin-box-container">
-                    <div className="buttons-area">Buttons
+                    <div className="coin-box-container">
+                        <div className="buttons-area">Buttons
 
-                        <input id="answer" type="text" placeholder="How many coins are on the floor?" title="Type into the box the total value of the coins on the floor!"></input>
-                        <button id="check-answer" title="Click this to submit your answer!" onClick={this.handleAnswer}>Check</button>
+                            <input id="answer" type="text" placeholder="How many coins are on the floor?" title="Type into the box the total value of the coins on the floor!"></input>
+                            <button id="check-answer" title="Click this to submit your answer!" onClick={this.handleAnswer}>Check</button>
 
-                        <label className="switch">
-                            <input type="checkbox" id="toggle" 
-                                onChange={
-                                    () => {this.setState(prevState => ({
-                                            tooltipsOn: !prevState.tooltipsOn,
-                                        })
-                                    )}
-                                }
-                                checked={this.state.tooltipsOn}
-                            />
-                            <span className="slider round"></span>
-                        </label>
+                            <label className="switch">
+                                <input type="checkbox" id="toggle"
+                                    onChange={
+                                        () => {
+                                            this.setState(prevState => ({
+                                                tooltipsOn: !prevState.tooltipsOn,
+                                            })
+                                            )
+                                        }
+                                    }
+                                    checked={this.state.tooltipsOn}
+                                />
+                                <span className="slider round"></span>
+                            </label>
 
-                        <button onClick={this.spawnCoin}>Spawn coin</button>
-                        <input id="deleter" placeholder="Delete something"></input>
-                        <button onClick={() => { this.despawnCoin() }}>Despawn coin</button>
-
-                    </div>
-
-                    <div id="playable-area" className="playable-area">
-                        <div className="from-floor-area">Exchange coins from floor
-                            <div id="floorbox" className="a-coin-box" data-coin="" title="Put the coins you want to exchange over here!">
-                                <p>thing</p>
-                            </div>
-                        </div>
-
-                        <div className="from-bank-area">Exchange coins from bank
-                            <button id="exchange-coins">Exhange coins</button>
-                            <div id="bankbox" className="a-coin-box">
-                                thing
-                            </div>
+                            <button onClick={this.spawnCoin}>Spawn coin</button>
+                            <input id="deleter" placeholder="Delete something"></input>
+                            <button onClick={() => { this.despawnCoin() }}>Despawn coin</button>
 
                         </div>
 
-                        <div className="bank-account" >Coins from bank
-                            <div id="accountbox" className="a-coin-box">
-                                thing
+                        <div id="playable-area" className="playable-area">
+                            <div className="from-floor-area">Exchange coins from floor
+                                <div id="floorbox" className="a-coin-box" data-coin="" title="Put the coins you want to exchange over here!">
+                                    <p>thing</p>
+                                </div>
                             </div>
 
-                        </div>
+                            <div className="from-bank-area">Exchange coins from bank
+                                <button id="exchange-coins">Exhange coins</button>
+                                <div id="bankbox" className="a-coin-box">
+                                    thing
+                                </div>
 
-                        <div id="floor" className="floor" ref={(div) => { this.floorDiv = div; }} title="You can move around coins by clicking and dragging with the mouse!">Floor
-                            {this.state.coins.map((coin, index) => {
-                                console.log("coin" + coin.toString());
-                                return (
-                                    <div
-                                        key={index}
-                                        id={"coin" + coin.toString()}
-                                        className="coin"
-                                        onMouseUp={() => { this.handleCoinDrop(index) }}
-                                    >
-                                    </div>
-                                );
-                            })}
+                            </div>
+
+                            <div id="floor" className="floor" ref={(div) => { this.floorDiv = div; }} title="You can move around coins by clicking and dragging with the mouse!">Floor
+                                {this.state.coins.map((coin, index) => {
+                                    console.log("coin" + coin.toString());
+                                    return (
+                                        <div
+                                            key={index}
+                                            id={"coin" + coin.toString()}
+                                            className="coin"
+                                            onMouseUp={() => { this.handleCoinDrop(index) }}
+                                        >
+                                        </div>
+                                    );
+                                })}
+                            </div>
                         </div>
                     </div>
                 </div>
