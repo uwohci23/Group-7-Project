@@ -17,6 +17,8 @@ public class logicScript : MonoBehaviour
     public int needToSaveNum;
     public TextMeshProUGUI savedNumText;
     public TextMeshProUGUI needToSavedNumText;
+    public TextMeshProUGUI textCue;
+
     public oktaSpawn oktaSpawner;
 
 
@@ -36,53 +38,75 @@ public class logicScript : MonoBehaviour
     void Update()
     {
 
-        
     }
 
 
+
     [ContextMenu("Increase Score")]
-    public void addNum(int score) {
+    public void addNum(int score)
+    {
         savedNum = savedNum + score;
         // totalSavedNum = totalSavedNum + score;
         savedNumText.text = savedNum.ToString();
     }
 
-    public void subtractNum(int score) {
+    public void subtractNum(int score)
+    {
         savedNum = savedNum - score;
         savedNumText.text = savedNum.ToString();
     }
 
-    public void addToTotal() {
+    // if they preforman one action right
+    // savedNum = 1 print text of good job
+    public void savedOne()
+    {
+        textCue.text = "good job";
+    }
+
+    public void resetText()
+    {
+        textCue.text = "keep going";
+
+    }
+
+    public void addToTotal()
+    {
         totalSavedNum = savedNum + totalSavedNum;
         Debug.Log("total saved okta: " + totalSavedNum);
         PlayerPrefs.SetInt("totalSaved", totalSavedNum);
     }
 
-    public string getNeedToSavedNum() {
+    public string getNeedToSavedNum()
+    {
         return needToSavedNumText.text;
     }
 
-    public void resetSavedNum() {
+    public void resetSavedNum()
+    {
         savedNum = 0;
     }
 
-    public int getScore() {
+    public int getScore()
+    {
         return savedNum;
     }
 
-    public int getNeedToSave() {
+    public int getNeedToSave()
+    {
         return needToSaveNum;
     }
-    
 
-    public bool savedNumEqual() {
+
+    public bool savedNumEqual()
+    {
         int tempNeedToSave = stringConvertInt(needToSavedNumText.text);
         int tempSaved = stringConvertInt(savedNumText.text);
 
         return tempNeedToSave == tempSaved;
     }
 
-    public int stringConvertInt(string text) {
+    public int stringConvertInt(string text)
+    {
         int value = Convert.ToInt32(text);
         return value;
     }

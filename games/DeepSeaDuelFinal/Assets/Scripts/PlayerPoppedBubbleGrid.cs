@@ -10,15 +10,9 @@ public class PlayerPoppedBubbleGrid : MonoBehaviour
 
     void Start()
     {
-        TestAddBubble();
     }
 
-    void TestAddBubble()
-    {
-        AddBubble(5);
-        AddBubble(2);
-    }
-    void AddBubble(int value)
+    public void AddBubble(int value)
     {
         GameObject new_bubble = Instantiate(bubble, spawnPosition, Quaternion.Euler(0, 0, 0));
         PoppedBubbleUnit curr_bubble = new_bubble.GetComponent<PoppedBubbleUnit>();

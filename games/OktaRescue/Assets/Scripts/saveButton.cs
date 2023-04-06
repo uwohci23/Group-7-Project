@@ -17,6 +17,8 @@ public class saveButton : MonoBehaviour
 
     public TextMeshProUGUI needToSavedNumText;
 
+    public TextMeshProUGUI textCue;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -42,6 +44,11 @@ public class saveButton : MonoBehaviour
         // add saved number to total saved
         if (logic.savedNumEqual()) {
             logic.addToTotal();
+            textCue.text = "saved" + logic.getNeedToSave() + "okta!";
+        }
+        else {
+            textCue.text = "the chute can't fit these oktas";
+
         }
         logic.resetSavedNum();
         oktaSpawner.generateOkta(addOkta);

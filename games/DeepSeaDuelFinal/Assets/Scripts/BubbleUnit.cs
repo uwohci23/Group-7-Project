@@ -49,13 +49,12 @@ public class BubbleUnit : MonoBehaviour
     {
         offset = transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition);
         dragging = true;
-        Debug.Log("dragged");
     }
 
     private void OnMouseUp()
     {
         dragging = false;
-
+        bool foundBeach = false;
         Collider2D[] colliders = Physics2D.OverlapBoxAll(transform.position, myCollider.size * 0.5f, 0f);
         foreach (Collider2D collider in colliders)
         {
@@ -65,11 +64,14 @@ public class BubbleUnit : MonoBehaviour
             }
             if (collider.gameObject.layer == LayerMask.NameToLayer("Beach"))
             {
-                system.changeTurn(value);
+                foundBeach = true;
+                system.ChangeTurn(value);
             }
         }
-
-        //transform.position = startPosition;
+        if (!foundBeach)
+        {
+            transform.position = startPosition;
+        }
     }
 
 }
