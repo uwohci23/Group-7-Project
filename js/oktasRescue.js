@@ -12,10 +12,21 @@ class OktasRescue extends React.Component {
     }
 
     render() {
+        let framer
+        switch(this.props.isTutorial) {
+            case false:
+                framer = <iframe id="Oktas Rescue" src="../games/GroupingAndGrazing/Build/index.html" style={{ width: "100vw", height: "100vh" }}></iframe>
+                break;
+            case true:
+                framer = <iframe id="Oktas Rescue" src="../games/GroupingAndGrazing/Build/index.html" style={{ width: "100vw", height: "100vh" }}></iframe>
+                break;
+        } 
         return (
             <div>
                 <PopupMenu name="Oktas Rescue" onClick={this.props.onClick} restart={this.restart} />
-                <iframe id="Oktas Rescue" src="../games/GroupingAndGrazing/Build/index.html" style={{ width: "100vw", height: "100vh" }}></iframe>
+                <div>
+                    {framer}
+                </div>
             </div>
         )
     }

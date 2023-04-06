@@ -19,13 +19,34 @@ body {
 .btn-grid {
     font-size: 35px;
 }
+
+#dsd-grid {
+    background-color: #649dbc;
+}
+
+#gg-grid {
+    background-color: #85AC40;
+}
+
+#cb-grid {
+    background-color: pink;
+}
+
+#or-grid {
+    background-color: #12b2ff;
+}
+
+
+
+
+
 /* 
 #menuTitle {
     position: absolute;
     grid-row-start: 0;
     grid-row-end: 1;
-}
-
+} */
+/* 
 #dsd-grid {
     grid-column-start: 0;
     grid-column-end: 1;
@@ -52,4 +73,4 @@ body {
     grid-column-end: 2;
     grid-row-start: 2;
     grid-row-end: 3;
-} */
+}  */

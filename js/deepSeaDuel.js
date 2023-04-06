@@ -11,13 +11,24 @@ class DeepSeaDuel extends React.Component {
         document.getElementById("Deep Sea Duel").src= "../games/GroupingAndGrazing/Build/index.html";
     }
 
+    //added logical choice between two iframes, one containing the tutorial and on that does not.
     render() {
+        let framer
+        switch(this.props.isTutorial) {
+            case false:
+                framer = <iframe id="Deep Sea Duel" src="../games/GroupingAndGrazing/Build/index.html" style={{ width: "100vw", height: "100vh" }}></iframe>
+                break;
+            case true:
+                framer = <iframe id="Deep Sea Duel" src="../games/GroupingAndGrazing/Build/index.html" style={{ width: "100vw", height: "100vh" }}></iframe>
+                break;
+        }        
         return (
             <div>
                 <PopupMenu name="Deep Sea Duel" onClick={this.props.onClick} restart={this.restart} />
-                <iframe id="Deep Sea Duel" src="../games/GroupingAndGrazing/Build/index.html" style={{ width: "100vw", height: "100vh" }}></iframe>
+                <div id="frame">
+                    {framer}
+                </div>
             </div>
         )
     }
-
 }

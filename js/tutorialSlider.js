@@ -3,24 +3,13 @@
 class TutorialSlider extends React.Component {
     constructor(props) {
         super(props)
-        this.state = {
-            /*
-            0: no tutorial
-            1: tutorial requested
-            */
-            isSlid: 0
-        }
-        this.handleSlide = this.handleSlide.bind(this)
-    }
-
-    handleSlide(isSlid) {
-        this.setState({ isSlid: isSlid })
     }
 
     render() {
         let slider = <label className="switch">
-            <input type="checkbox" onChange={() => {this.handleSlide}}/>
+            <input type="checkbox" onChange={() => {this.props.onTutorial()}}/>
             <span className="slider"></span>
+            <span className="labels" data-on="Have fun!" data-off="Help?"></span>
             </label>
         return (
             <div>
