@@ -8,19 +8,20 @@ class GroupingAndGrazing extends React.Component {
     }
 
     restart() {
-        document.getElementById("Grouping and Grazing").src= "../games/GroupingAndGrazing/Build/index.html";
+        document.getElementById("Grouping and Grazing").src = "../games/GroupingAndGrazing/Build/index.html";
     }
 
     render() {
         let framer
-        switch(this.props.isTutorial) {
+        console.log(this.props.isTutorial)
+        switch (this.props.isTutorial) {
             case false:
                 framer = <iframe id="Grouping and Grazing" src="../games/GroupingAndGrazing/Build/index.html" style={{ width: "100vw", height: "100vh" }}></iframe>
                 break;
             case true:
                 framer = <iframe id="Grouping and Grazing" src="../games/GroupingAndGrazing/Build/index.html" style={{ width: "100vw", height: "100vh" }}></iframe>
                 break;
-        } 
+        }
         return (
             <div>
                 <PopupMenu name="Grouping and Grazing" onClick={this.props.onClick} restart={this.restart} />

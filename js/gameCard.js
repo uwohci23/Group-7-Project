@@ -17,39 +17,39 @@ class GameCard extends React.Component {
     }
 
 
-changeTutorial() {
-    this.setState({ tutorial: !tutorial })
-}
+    changeTutorial() {
+        this.setState({ tutorial: !this.state.tutorial })
+    }
 
     render() {
-        let thumbnail = <img src={this.thumbnail}/>
-        let tutorialSlider = <TutorialSlider onTutorial={this.changeTutorial}/>
+        let thumbnail = <img src={this.thumbnail} />
+        let tutorialSlider = <TutorialSlider onTutorial={this.changeTutorial} />
         let tut
-        switch(this.state) {
-            case 0:
+        switch (this.state.tutorial) {
+            case false:
                 tut = false;
                 break;
-            case 1:
+            case true:
                 tut = true;
                 break;
         }
         let name
         let playButton
-        switch(this.title) {
+        switch (this.title) {
             case 1:
-                playButton = <button onClick={() => {this.props.onGameNum(1,tut)}} className="btn-play">PLAY</button>
+                playButton = <button onClick={() => { this.props.onGameNum(1, tut) }} className="btn-play">PLAY</button>
                 name = <h1 id="title">Deep Sea Duel</h1>
                 break;
             case 2:
-                playButton = <button onClick={() => {this.props.onGameNum(2,tut)}} className="btn-play">PLAY</button>
+                playButton = <button onClick={() => { this.props.onGameNum(2, tut) }} className="btn-play">PLAY</button>
                 name = <h1 id="title">Grouping and Grazing</h1>
                 break;
             case 3:
-                playButton = <button onClick={() => {this.props.onGameNum(3,tut)}} className="btn-play">PLAY</button>
+                playButton = <button onClick={() => { this.props.onGameNum(3, tut) }} className="btn-play">PLAY</button>
                 name = <h1 id="title">Coin Box</h1>
                 break;
             case 4:
-                playButton = <button onClick={() => {this.props.onGameNum(4,tut)}} className="btn-play">PLAY</button>
+                playButton = <button onClick={() => { this.props.onGameNum(4, tut) }} className="btn-play">PLAY</button>
                 name = <h1 id="title">Okta's Rescue</h1> //DO NOT CHANGE THE TEXT, CODE WILL BREAK
                 break;
         }

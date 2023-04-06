@@ -22,7 +22,7 @@ class Root extends React.Component {
     }
 
     changeGameNum(gameNum, tutorial = false) {
-        this.setState({ gameNum: gameNum ,tutorial: tutorial})
+        this.setState({ gameNum: gameNum, tutorial: tutorial })
     }
 
     render() {
@@ -38,17 +38,17 @@ class Root extends React.Component {
                     isTutorial={this.state.tutorial} />
                 break;
             case 2:
-                game = <GroupingAndGrazing 
+                game = <GroupingAndGrazing
                     onClick={this.changeGameNum}
                     isTutorial={this.state.tutorial} />
                 break;
             case 3:
-                game = <CoinBox 
+                game = <CoinBox
                     onClick={this.changeGameNum}
                     isTutorial={this.state.tutorial} />
                 break;
             case 4:
-                game = <OktasRescue 
+                game = <OktasRescue
                     onClick={this.changeGameNum}
                     isTutorial={this.state.tutorial} />
                 break;
