@@ -123,6 +123,12 @@ public class okta : MonoBehaviour
 
         if (collision.gameObject.tag == "Tube" && oktaSR.tag == "Selected") {
             logic.addNum(1);
+            if (logic.getScore() == 1) {
+                logic.savedOne();
+            }
+            else {
+                logic.resetText();
+            }
         }
         else if (collision.gameObject.tag == "Tube" && oktaSR.tag == "Okta") {
             logic.subtractNum(1);

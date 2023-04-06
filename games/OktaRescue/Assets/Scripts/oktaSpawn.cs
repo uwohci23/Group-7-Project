@@ -16,57 +16,64 @@ public class oktaSpawn : MonoBehaviour
         oktaList = new List<GameObject>();
 
         generateOkta(maxOkta);
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
 
-    public void generateOkta(int oktaNum) {
+    public void generateOkta(int oktaNum)
+    {
         float height = Camera.main.orthographicSize;
-		float width = height * Camera.main.aspect;
+        float width = height * Camera.main.aspect;
         height -= 1f;
-		width -= 1f;
+        width -= 1f;
         int counter = 0;
 
-       	while(counter < oktaNum) {
+        while (counter < oktaNum)
+        {
 
             Vector2 pos;
-            do {
+            do
+            {
                 float oktaWidth = Random.Range(-width + 1f, width - 3.5f);
                 float oktaHeight = Random.Range(-height, height - 1f);
                 pos = new Vector2(oktaWidth, oktaHeight);
 
             } while (Physics2D.OverlapCircleAll(pos, 1f).Length > 0);
             // okta is a PREFAB!!!!
-            GameObject oktaObj= Instantiate(okta, pos, transform.rotation);
+            GameObject oktaObj = Instantiate(okta, pos, transform.rotation);
             oktaList.Add(oktaObj);
 
-            counter ++;
+            counter++;
         }
     }
 
-    public void generateOutlineOkta(int needToSave) {
+    public void generateOutlineOkta(int needToSave)
+    {
         Vector2 initalPos = new Vector2(7f, 3f);
         Vector2 pos = initalPos;
         float addX = 1.5f;
         float addY = -1.5f;
 
-        for (int i = 0; i < needToSave; i ++) {
-            if (i % 2 == 0 && i != 0) {
+        for (int i = 0; i < needToSave; i++)
+        {
+            if (i % 2 == 0 && i != 0)
+            {
                 pos = new Vector2(initalPos.x, initalPos.y + addY * (i / 2));
             }
-            else if (i % 2 == 1){
+            else if (i % 2 == 1)
+            {
                 pos = new Vector2(initalPos.x + addX, initalPos.y + addY * (i / 2));
             }
-            else {
+            else
+            {
                 pos = initalPos;
             }
-            Debug.Log(pos);
 
             Instantiate(oktaOutline, pos, transform.rotation);
 
