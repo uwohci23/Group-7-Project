@@ -126,6 +126,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cowManager: {fileID: 0}
   cowSprite: {fileID: 21300000, guid: af11225b105ccbd46b0c40214d0fa65c, type: 3}
+  highlightedSprite: {fileID: 21300000, guid: 77dc19da173fb374688124cd650266c1, type: 3}
   selectedSprite: {fileID: 21300000, guid: 7637f858a0bb475489e730141d1bbcc6, type: 3}
   groupedSprite: {fileID: 21300000, guid: 10b066bde4626a344a7c5f834ee97cd8, type: 3}
   leftBoundary: 0
