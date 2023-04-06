@@ -23,23 +23,32 @@
 } */
 
 #cardName {
-    /*background-color: black;*/
     text-align: center;
+    color: aliceblue;
     grid-column-start: 1;
     grid-column-end: 4;
     grid-row-start: 1;
     grid-row-end: -1;
+    z-index: 2;
+}
+
+#title {
+    text-shadow: 2px 2px black;
 }
 
 #cardThumbnail {
-    /* background-color: rgb(132, 29, 228); */
+    /* background-color: rgb(204, 41, 41); */
+    width: 100%;
+    height: auto;
     position: relative;
-    top: 50%;
-    left: 50%;
+    text-align: center;
+    overflow: hidden;
+
     grid-column-start: 1;
     grid-column-end: 4;
-    grid-row-start: 4;
+    grid-row-start: 2;
     grid-row-end: 5;
+    z-index: 1;
 }
 
 #cardPlayButton {
@@ -49,36 +58,41 @@
     left: 50%;
     grid-column-start: 1;
     grid-column-end: 4;
-    grid-row-start: 5;
-    grid-row-end: 6;
+    grid-row-start: 6;
+    grid-row-end: 7;
     transform: translate(-5%, -5%);
 }
 
 #cardSlider {
     /* background-color: yellow; */
-    position: relative;
+    /* position: relative; */
     top: 0;
-    left: 49.5%;
+    /* left: 38%; */
     grid-column-start: 1;
     grid-column-end: 4;
-    grid-row-start: 6;
-    grid-row-end: 7;
+    grid-row-start: 5;
+    grid-row-end: 6;
+    
+    text-align: center;
 }
 
 .btn-play {
     display: block;
-    width: 15%;
+    /* width: 15%; */
     border: none;
-    background-color: lightcoral;
-    border-radius: 20%;
+    background-color: blueviolet;
+    color:aliceblue;
+    font-family: "Comic Neue", "sans-serif";
+    font-size: 2rem;
+    border-radius: 1rem;
     padding: 20px 20px;
     font-size: 35px;
     font-weight: 600;
     cursor: pointer;
     text-align: center;
+    box-shadow: 2px 2px black;
 }
 
 .btn-play:hover {
-    background-color: coral;
-    color: black;
+    background-color: rgb(187, 144, 228);
 }
