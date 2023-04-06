@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public enum BattleState { START, PLAYERTURN, ENEMYTURN, WON, LOST }
 
@@ -13,21 +14,19 @@ public class BattleSystem : MonoBehaviour
 
     public GameObject playerBeach;
     public GameObject enemyBeach;
-    //public Transform playerBeachT;
-    //public Transform enemyBeachT;
 
     public GameObject bubbleGrid;
     public GameObject playerPoppedBubbleGrid;
     public GameObject enemyPoppedBubbleGrid;
 
-    private int sum = 10;
+    private int sum = 0;
     private int playerSum = 0;
     private int enemySum = 0;
     public UnitCurrentSum playerSumText;
-    public UnitCurrentSum enemySumText; 
+    public UnitCurrentSum enemySumText;
+    public UnitCurrentSum sumText;
 
-    //Unit playerUnit;
-    //Unit enemyUnit;
+    public GameObject endGamePanel;
 
     public BattleState state;
 
@@ -42,17 +41,9 @@ public class BattleSystem : MonoBehaviour
     {
         playerBeach = Instantiate(playerBeach);
         enemyBeach = Instantiate(enemyBeach);
-        //Instantiate(playerBeachT);
-        //Instantiate(enemyBeachT);
 
-        //GameObject playerGO = Instantiate(playerPrefab, playerBeachT.position, Quaternion.identity);
-        //Vector3 position = playerGO.transform.position;
-        //position.y = playerPrefab.transform.position.y;
-        //playerGO.transform.position = position;
-        //playerUnit = playerGO.GetComponent<Unit>();
-
-        //GameObject enemyGO = Instantiate(enemyPrefab, enemyBeachT.position, Quaternion.identity);
-        //enemyUnit = enemyGO.GetComponent<Unit>();
+        sum = Random.Range(10, 23);
+        sumText.ChangeText(sum.ToString());
 
         bubbleGrid = Instantiate(bubbleGrid);
         playerPoppedBubbleGrid = Instantiate(playerPoppedBubbleGrid);
@@ -103,7 +94,7 @@ public class BattleSystem : MonoBehaviour
             // check if game is won
             bool check = CheckSum(playerSum);
             if (check) {
-                Debug.Log("player won");
+                EndGame();
             }
             // change turn
             EnemyTurn();
@@ -125,7 +116,7 @@ public class BattleSystem : MonoBehaviour
             bool check = CheckSum(enemySum);
             if (check)
             {
-                Debug.Log("enemy won");
+                EndGame();
             }
 
             state = BattleState.PLAYERTURN;
@@ -141,7 +132,6 @@ public class BattleSystem : MonoBehaviour
     {
         if (currentSum == sum)
         {
-            Debug.Log("WON GAME");
             state = BattleState.WON;
             return true;
         }
@@ -165,5 +155,17 @@ public class BattleSystem : MonoBehaviour
         SetColliderActive(enemyBeach);
         SetColliderFalse(playerBeach);
     }
+
+    public void RestartGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    private void EndGame()
+    {
+        RestartDialog rd = endGamePanel.GetComponent<RestartDialog>();
+        rd.ShowPanel();
+    }
+
 
 }
