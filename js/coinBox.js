@@ -22,13 +22,17 @@ class CoinBox extends React.Component {
 
         this.restart = this.restart.bind(this);
 
+        this.handleAnswerEnter = this.handleAnswerEnter.bind(this);
         this.handleAnswer = this.handleAnswer.bind(this);
         this.handleCloseWinPopup = this.handleCloseWinPopup.bind(this);
 
         this.spawnCoin = this.spawnCoin.bind(this);
 
+
         this.toggleTooltips = this.toggleTooltips.bind(this);
     }
+
+    // TODO: Make closing the WIN and LOSE popups nicer on esc and enter
 
     setUpCoins() {
         console.log("SETTING UP COINS");
@@ -208,7 +212,18 @@ class CoinBox extends React.Component {
 
     }
 
+
+
     setUpTooltips() {
+
+        document.onkeyup = (event) => {
+            if (event.key === "t") {
+                document.getElementById("toggle").checked = !document.getElementById("toggle").checked;
+                this.setState(prevState => ({
+                    tooltipsOn: !prevState.tooltipsOn
+                }))
+            }
+        }
 
         $("#answer").tooltip();
         $("#check-answer").tooltip();
@@ -221,8 +236,9 @@ class CoinBox extends React.Component {
 
     }
 
-    toggleTooltips() {
 
+
+    toggleTooltips() {
 
         console.log("TOOLTIPS?: ", this.state.tooltipsOn)
 
@@ -280,6 +296,12 @@ class CoinBox extends React.Component {
         });
     }
 
+    handleAnswerEnter(event) {
+        if (event.key === "Enter") {
+            this.handleAnswer();
+        }
+    }
+
     handleAnswer() {
         let answer = document.getElementById("answer").value;
         if (parseInt(answer) === this.state.total) {
@@ -294,6 +316,7 @@ class CoinBox extends React.Component {
                 total: 0,
                 win: true
             });
+
         } else {
             console.log("WRONG")
             document.getElementById('lose-popup').style.display = "grid";
@@ -437,10 +460,10 @@ class CoinBox extends React.Component {
                     </dialog>
 
                     <div className="coin-box-container">
-                        <div className="buttons-area">Buttons
+                        <div className="buttons-area">
 
-                            <input id="answer" type="text" placeholder="How many coins are on the floor?" title="Type into the box the total value of the coins on the floor!"></input>
-                            <button id="check-answer" title="Click this to submit your answer!" onClick={this.handleAnswer}>Check</button>
+                            <input id="answer" className="answer" type="text" placeholder="Enter value" title="Type into the box the total value of the coins on the floor!" onKeyUp={this.handleAnswerEnter}></input>
+                            <button id="check-answer" className="check-answer" title="Click this to submit your answer!" onClick={this.handleAnswer}>Check</button>
 
                             <label className="switch">
                                 <input type="checkbox" id="toggle"
@@ -472,8 +495,31 @@ class CoinBox extends React.Component {
 
                             <div className="from-bank-area">Exchange coins from bank
                                 <button id="exchange-coins">Exhange coins</button>
-                                <div id="bankbox" className="a-coin-box">
-                                    thing
+                                <div class="exchange-container">
+                                    <div class="exchange-banner">Exchange Coins</div>
+
+                                    <div class="exchange-card">
+                                        <h3>Quarters</h3>
+                                        <input type="number" />
+                                    </div>
+
+                                    <div class="exchange-card">
+                                        <h3>Dimes</h3>
+                                        <input type="number" />
+                                    </div>
+
+                                    <div class="exchange-card">
+                                        <h3>Nickels</h3>
+                                        <input type="number" />
+                                    </div>
+
+                                    <div class="exchange-card">
+                                        <h3>Pennies</h3>
+                                        <input type="number" />
+                                    </div>
+
+
+
                                 </div>
 
                             </div>
