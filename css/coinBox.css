@@ -1,10 +1,15 @@
+.main-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .game-container {
     aspect-ratio: 16 / 9;
-    width: 50rem;
+    width: 70rem;
     height: 20rem;
-    /* margin-top: 20rem; */
-    margin-left: 35rem;
-    margin-bottom: 20rem;
 }
 
 .coin-box-container {
@@ -20,7 +25,35 @@
     width: 100%;
     height: 100%;
     background-color: blue;
+    display: grid;
 }
+
+.check-answer {
+    grid-column-start: 2;
+    height: 80%;
+    /* padding: 13px 130px; */
+    border: 3px solid #000;
+    background-color: #f54260;
+    font-family: "Comic Neue", "sans-serif";
+    font-size: 2rem;
+    outline: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.check-answer:hover {
+    background-color: #67cf8a;
+}
+
+.answer {
+    grid-column-start: 1;
+
+
+}
+
+
 
 .playable-area {
     grid-row-start: 2;
@@ -34,22 +67,35 @@
     grid-row-start: 2;
     width: 100%;
     height: 100%;
-    background-color: pink;
+    background-color: rgb(16, 186, 93);
 }
 
 .from-bank-area {
-    grid-row-start: 3;
+    grid-row-start: span 2;
     width: 100%;
     height: 100%;
-    background-color: pink;
+    background-color: rgb(16, 186, 93);
 }
 
-.bank-account {
-    grid-row-start: 4;
-    width: 100%;
-    height: 100%;
-    background-color: pink;
-}
+.exchange-container {
+    display: grid;
+    border-style: solid;
+  }
+  
+  .exchange-banner {
+    grid-row-start: 1;
+    grid-column-start: span 2;
+    text-align: center;
+    border-style: solid;
+  }
+  
+  .exchange-card {
+    text-align: center;
+    border-style: solid;
+  }
+  
+  
+
 
 .floor {
     grid-row-start: 2;
@@ -58,7 +104,7 @@
 
     width: 100%;
     height: 40rem;
-    background-color: green;
+    background-color: rgb(237, 239, 237);
     position: relative;
 }
 
@@ -79,6 +125,12 @@
     left: 0;
     top: 0;
     /* cursor: grab; */
+}
+
+.cash-register {
+    content: url("../art/coinBox/cash-register.png");
+    width: 4rem;
+    height: auto;
 }
 
 .quarter {
@@ -109,6 +161,7 @@
 
 /* Toggle slider styling */
 .switch {
+    grid-column-start: 3;
     position: relative;
     display: inline-block;
     width: 60px;
@@ -126,9 +179,15 @@
     left: 0;
     right: 0;
     bottom: 0;
+    height: 100%;
+    width: 100%;
     background-color: #ccc;
     -webkit-transition: .4s;
     transition: .4s;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .slider:before {
@@ -144,11 +203,11 @@
 }
 
 input:checked+.slider {
-    background-color: #2196F3;
+    background-color: #40ba24;
 }
 
 input:focus+.slider {
-    box-shadow: 0 0 1px #2196F3;
+    box-shadow: 0 0 1px #40ba24;
 }
 
 input:checked+.slider:before {
