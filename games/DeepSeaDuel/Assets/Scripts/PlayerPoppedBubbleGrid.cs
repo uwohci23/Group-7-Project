@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerPoppedBubbleGrid : MonoBehaviour
 {
     public GameObject bubble;
-    private Vector2 spawnPosition = new Vector2(-9f, 3f);
+    private Vector2 spawnPosition = new Vector2(-7f, 3f);
     private float addY = -1.5f;
 
     void Start()

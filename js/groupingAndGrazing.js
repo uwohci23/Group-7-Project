@@ -19,7 +19,7 @@ class GroupingAndGrazing extends React.Component {
                 framer = <iframe id="Grouping and Grazing" src="../games/GroupingAndGrazing/Build/index.html" style={{ width: "100vw", height: "100vh" }}></iframe>
                 break;
             case true:
-                framer = <iframe id="Grouping and Grazing" src="../games/GroupingAndGrazing/Build/index.html" style={{ width: "100vw", height: "100vh" }}></iframe>
+                framer = <iframe id="Grouping and Grazing" src="../games/GroupingAndGrazing/TutorialBuild/index.html" style={{ width: "100vw", height: "100vh" }}></iframe>
                 break;
         }
         return (

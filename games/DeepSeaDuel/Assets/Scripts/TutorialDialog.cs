@@ -5,7 +5,7 @@ using UnityEngine;
 public class TutorialDialog : MonoBehaviour
 {
     public GameObject panel;
-    private float timeRemaining = 2.5f;
+    public float timeRemaining = 2.5f;
 
     void Start()
     {

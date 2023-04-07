@@ -4,7 +4,7 @@ body {
 }
 
 #unity-container {
-    position: absolute;
+    position: absolute
 }
 
 #unity-container.unity-desktop {

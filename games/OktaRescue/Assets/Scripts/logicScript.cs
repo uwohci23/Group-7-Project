@@ -27,10 +27,13 @@ public class logicScript : MonoBehaviour
     {
         PlayerPrefs.SetInt("totalSaved", 0);
         totalSavedNum = 0;
-        needToSaveNum = UnityEngine.Random.Range(1, 5);
+        randomGenerator();
+        
         needToSavedNumText.text = needToSaveNum.ToString();
         oktaSpawner = GameObject.FindGameObjectWithTag("OktaSpawner").GetComponent<oktaSpawn>();
-        oktaSpawner.generateOutlineOkta(needToSaveNum);
+        if (PlayerPrefs.GetString("difficulty") ==  "easy") {
+            oktaSpawner.generateOutlineOkta(needToSaveNum);
+        }
 
     }
 
@@ -40,6 +43,18 @@ public class logicScript : MonoBehaviour
 
     }
 
+    public int randomGenerator() {
+        if (PlayerPrefs.GetString("difficulty") ==  "easy") {
+            needToSaveNum = UnityEngine.Random.Range(1, 5);
+        }
+        else if (PlayerPrefs.GetString("difficulty") ==  "medium") {
+            needToSaveNum = UnityEngine.Random.Range(5, 9);
+        }
+        else if (PlayerPrefs.GetString("difficulty") ==  "difficulty") {
+            needToSaveNum = UnityEngine.Random.Range(7, 10);
+        }
+        return needToSaveNum;
+    }
 
 
     [ContextMenu("Increase Score")]
