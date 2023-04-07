@@ -241,6 +241,7 @@ class CoinBox extends React.Component {
             $("#floor").tooltip();
             $("#floorbox").tooltip();
             $("#exchanger").tooltip();
+            $("#instructions-button").tooltip();
         }
     }
 
@@ -257,6 +258,7 @@ class CoinBox extends React.Component {
             $("#floor").tooltip("enable");
             $("#floorbox").tooltip("enable");
             $("#exchanger").tooltip("enable");
+            $("#instructions-button").tooltip("enable");
             console.log("ENABLED!")
         } else {
             $("#answer").tooltip("disable");
@@ -265,6 +267,7 @@ class CoinBox extends React.Component {
             $("#floor").tooltip("disable");
             $("#floorbox").tooltip("disable");
             $("#exchanger").tooltip("disable");
+            $("#instructions-button").tooltip("disable");
             console.log("DISABLED!")
         }
     }
