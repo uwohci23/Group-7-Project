@@ -58,10 +58,18 @@ class PopupMenu extends React.Component {
         popup.close();
     }
 
-    handleClosePopupWithEsc(e) {
+    handleClosePopupWithEsc(e, code) {
         if (e.code === 'Escape') {
             console.log("escape pressed");
-            this.handleClosePopup();
+            if (code === 1) {
+                this.closeConfirmRestart();
+                this.handleClosePopup();
+            } else if (code === 2) {
+                this.closeConfirmExit();
+                this.handleClosePopup();
+            } else {
+                this.handleClosePopup();
+            }
         }
     }
 
@@ -79,13 +87,13 @@ class PopupMenu extends React.Component {
                     <button id="choice" className="choice" onClick={this.confirmExit}>Exit</button>
                 </dialog>
 
-                <dialog id="confirm-restart" className="popup">
+                <dialog id="confirm-restart" className="popup" onKeyDown={(e) => {this.handleClosePopupWithEsc(e, 1)}}>
                     <h3>Are you sure you want to restart?</h3>
                     <button onClick={this.handleRestart}>Yes</button>
                     <button onClick={this.closeConfirmRestart}>No</button>
                 </dialog>
 
-                <dialog id="confirm-exit" className="popup">
+                <dialog id="confirm-exit" className="popup" onKeyDown={(e) => {this.handleClosePopupWithEsc(e, 2)}}>
                     <h3>Are you sure you want to exit?</h3>
                     <button onClick={() => this.props.onClick(0)}>Yes</button>
                     <button onClick={this.closeConfirmExit}>No</button>

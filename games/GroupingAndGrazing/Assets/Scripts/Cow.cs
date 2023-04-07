@@ -9,7 +9,7 @@ public class Cow : MonoBehaviour {
 	private Camera main;
 	private BoxCollider2D boxCollider2D;
 	private SpriteRenderer sr;
-	public Sprite cowSprite, selectedSprite, groupedSprite;
+	public Sprite cowSprite, highlightedSprite, selectedSprite, groupedSprite;
 
 	private Vector3 mousePos, clickPos, groupPos;
 	public float leftBoundary, rightBoundary, bottomBoundary;
@@ -43,6 +43,16 @@ public class Cow : MonoBehaviour {
 			mouseMovement.z = 0;
 			transform.position = clickPos + mouseMovement;
 		}
+	}
+
+	public void OnMouseEnter() {
+		if (!isSelected)
+			sr.sprite = highlightedSprite;
+	}
+
+	public void OnMouseExit() {
+		if (!isSelected)
+			sr.sprite = cowSprite;
 	}
 
 	public void OnMouseDown() {

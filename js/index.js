@@ -11,32 +11,46 @@ class Root extends React.Component {
             3 = Coin Box
             4 = Okta's Rescue
             */
-            gameNum: 0
+            gameNum: 0,
+            /*
+            False = No tutorial needed
+            True = Tutorial needed
+            */
+            tutorial: false
         }
         this.changeGameNum = this.changeGameNum.bind(this)
     }
 
-    changeGameNum(gameNum) {
-        this.setState({ gameNum: gameNum })
+    changeGameNum(gameNum, tutorial = false) {
+        this.setState({ gameNum: gameNum, tutorial: tutorial })
     }
 
     render() {
         let game
         switch (this.state.gameNum) {
             case 0:
-                game = <MainMenu onGameNum={this.changeGameNum} />
+                game = <MainMenu
+                    onGameNum={this.changeGameNum} />
                 break;
             case 1:
-                game = <DeepSeaDuel onClick={this.changeGameNum} />
+                game = <DeepSeaDuel
+                    onClick={this.changeGameNum}
+                    isTutorial={this.state.tutorial} />
                 break;
             case 2:
-                game = <GroupingAndGrazing onClick={this.changeGameNum} />
+                game = <GroupingAndGrazing
+                    onClick={this.changeGameNum}
+                    isTutorial={this.state.tutorial} />
                 break;
             case 3:
-                game = <CoinBox onClick={this.changeGameNum} />
+                game = <CoinBox
+                    onClick={this.changeGameNum}
+                    isTutorial={this.state.tutorial} />
                 break;
             case 4:
-                game = <OktasRescue onClick={this.changeGameNum} />
+                game = <OktasRescue
+                    onClick={this.changeGameNum}
+                    isTutorial={this.state.tutorial} />
                 break;
         }
 
