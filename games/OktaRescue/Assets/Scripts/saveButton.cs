@@ -52,11 +52,12 @@ public class saveButton : MonoBehaviour
         }
         logic.resetSavedNum();
         oktaSpawner.generateOkta(addOkta);
-        int needToSave = Random.Range(1, 5);
+        int needToSave = logic.randomGenerator();
         needToSavedNumText.text = needToSave.ToString();
         oktaSpawner.generateOkta(addOkta);
-        oktaSpawner.generateOutlineOkta(needToSave);
-
+        if (PlayerPrefs.GetString("difficulty") ==  "easy") {
+            oktaSpawner.generateOutlineOkta(needToSave);
+        }
 	}
 
     void DestroyAll(string tag) {

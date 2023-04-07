@@ -19,9 +19,8 @@ public class tooltip : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public void OnPointerEnter(PointerEventData eventData)
     {
         // Same here
-        // Debug.Log("Cursor Entering " + name + " GameObject");
 
-        if (gmo_toolTip != null)
+        if (gmo_toolTip != null && PlayerPrefs.GetString("difficulty") ==  "easy")
         {
             gmo_toolTip.SetActive(true);
         }
@@ -30,10 +29,9 @@ public class tooltip : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        Debug.Log("Cursor Exiting " + name + " GameObject");
 
         // and same here
-        if (gmo_toolTip != null)
+        if (gmo_toolTip != null && PlayerPrefs.GetString("difficulty") ==  "easy")
         {
             gmo_toolTip.SetActive(false);
         }
