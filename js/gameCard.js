@@ -22,7 +22,7 @@ class GameCard extends React.Component {
     }
 
     render() {
-        let thumbnail = <img src={this.thumbnail} />
+        let thumbnail = <img src={this.thumbnail} height={200} />
         let tutorialSlider = <TutorialSlider onTutorial={this.changeTutorial} />
         let tut
         switch (this.state.tutorial) {

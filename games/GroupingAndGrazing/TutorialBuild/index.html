@@ -11,7 +11,7 @@
 
 <body>
   <div id="unity-container" class="unity-desktop">
-    <canvas id="unity-canvas"></canvas>
+    <canvas id="unity-canvas" width=960 height=600></canvas>
     <div id="unity-loading-bar">
       <div id="unity-logo"></div>
       <div id="unity-progress-bar-empty">
@@ -51,11 +51,11 @@
     }
 
     var buildUrl = "Build";
-    var loaderUrl = buildUrl + "/Build.loader.js";
+    var loaderUrl = buildUrl + "/TutorialBuild.loader.js";
     var config = {
-      dataUrl: buildUrl + "/Build.data",
-      frameworkUrl: buildUrl + "/Build.framework.js",
-      codeUrl: buildUrl + "/Build.wasm",
+      dataUrl: buildUrl + "/TutorialBuild.data",
+      frameworkUrl: buildUrl + "/TutorialBuild.framework.js",
+      codeUrl: buildUrl + "/TutorialBuild.wasm",
       streamingAssetsUrl: "StreamingAssets",
       companyName: "DefaultCompany",
       productName: "GroupingAndGrazing",
