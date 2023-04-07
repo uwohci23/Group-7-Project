@@ -7,6 +7,10 @@ TagManager:
   - Logic
   - Okta
   - Tube
+  - Selected
+  - OktaSpawner
+  - SliderManager
+  - EventManager
   layers:
   - Default
   - TransparentFX
