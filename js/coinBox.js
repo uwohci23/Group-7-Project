@@ -542,7 +542,7 @@ class CoinBox extends React.Component {
                             <input id="answer" className="answer" type="text" placeholder="Enter value" title="Type into the box the total value of the coins on the floor!" onKeyUp={this.handleAnswerEnter}></input>
                             <button id="check-answer" className="check-answer" title="Click this to submit your answer!" onClick={this.handleAnswer}>Check</button>
 
-                            <label className="switch">
+                            <label className="switch1">
                                 <input type="checkbox" id="toggle"
                                     onChange={
                                         () => {
@@ -554,11 +554,11 @@ class CoinBox extends React.Component {
                                     }
                                     checked={this.state.tooltipsOn}
                                 />
-                                <span className="slider round"></span>
+                                <span className="slider1 round1"></span>
                             </label>
                             
-                            <input id="deleter" placeholder="delete something"></input>
-                            <button onClick={this.despawn2}>Button</button>
+                            {/* <input id="deleter" placeholder="delete something"></input>
+                            <button onClick={this.despawn2}>Button</button> */}
 
                         </div>
 
