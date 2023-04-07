@@ -13,7 +13,7 @@ class CoinBox extends React.Component {
             count: 0,
             total: 0,
             win: false,
-            tooltipsOn: true,
+            tooltipsOn: this.props.isTutorial,
         };
 
         this.setUpCoins = this.setUpCoins.bind(this);
@@ -222,25 +222,26 @@ class CoinBox extends React.Component {
 
     setUpTooltips() {
 
-        document.onkeyup = (event) => {
-            if (event.key === "t") {
-                document.getElementById("toggle").checked = !document.getElementById("toggle").checked;
-                this.setState(prevState => ({
-                    tooltipsOn: !prevState.tooltipsOn
-                }))
+        if (this.props.isTutorial) {
+            document.onkeyup = (event) => {
+                if (event.key === "t") {
+                    document.getElementById("toggle").checked = !document.getElementById("toggle").checked;
+                    this.setState(prevState => ({
+                        tooltipsOn: !prevState.tooltipsOn
+                    }))
+                }
             }
+
+            $("#answer").tooltip();
+            $("#check-answer").tooltip();
+            $(".coin").tooltip({
+                show: { effect: "blind", duration: 200, delay: 500 },
+                hide: { effect: "blind", duration: 200 }
+            });
+            $("#floor").tooltip();
+            $("#floorbox").tooltip();
+            $("#exchanger").tooltip();
         }
-
-        $("#answer").tooltip();
-        $("#check-answer").tooltip();
-        $(".coin").tooltip({
-            show: { effect: "blind", duration: 200, delay: 500 },
-            hide: { effect: "blind", duration: 200 }
-        });
-        $("#floor").tooltip();
-        $("#floorbox").tooltip();
-        $("#exchanger").tooltip();
-
     }
 
 
@@ -494,7 +495,7 @@ class CoinBox extends React.Component {
             console.log("good coins")
             // exchange coins
             this.despawnCoins();
-            
+
             /* if (quarters !== 0) {
                 this.spawnCoin(25, quarters);
                 console.log("SPAWNING QUARTERS");
@@ -522,6 +523,18 @@ class CoinBox extends React.Component {
 
     }
 
+    handleShowInstructions() {
+        document.getElementById('instructions-popup').style.display = "grid";
+        const popup = document.querySelector('#instructions-popup');
+        popup.showModal();
+    }
+
+    handleCloseInstructions() {
+        document.getElementById('instructions-popup').style.display = "none";
+        const popup = document.querySelector('#instructions-popup');
+        popup.close();
+    }
+
 
     render() {
         return (
@@ -542,6 +555,19 @@ class CoinBox extends React.Component {
                             <input id="answer" className="answer" type="text" placeholder="Enter value" title="Type into the box the total value of the coins on the floor!" onKeyUp={this.handleAnswerEnter}></input>
                             <button id="check-answer" className="check-answer" title="Click this to submit your answer!" onClick={this.handleAnswer}>Check</button>
 
+                            <button id="instructions-button" className="instructions-button" title="Click this to show instructions!" onClick={this.handleShowInstructions}>Instructions</button>
+                            <dialog id="instructions-popup" className="instructions-popup">
+                                <p>Step 1:
+                                Count the coins on the floor. What is their total value?</p>
+
+                                <p>Step 2:
+                                Type your answer into the answer box then click the button or press enter. If your answer is correct, then you win and then you get a different set of coins to play with. If your answer is incorrect, then you need to count the coins again.</p>
+
+                                <p>Exchange:
+                                Drop coins into the left box. Then choose how many coins you want to exchange using the table. Then click exchange to replace the coins in the box with the coins you chose in the table. </p>
+                                <button onClick={this.handleCloseInstructions}>OK</button>
+                            </dialog>
+
                             <label className="switch1">
                                 <input type="checkbox" id="toggle"
                                     onChange={
@@ -556,7 +582,7 @@ class CoinBox extends React.Component {
                                 />
                                 <span className="slider1 round1"></span>
                             </label>
-                            
+
                             {/* <input id="deleter" placeholder="delete something"></input>
                             <button onClick={this.despawn2}>Button</button> */}
 
