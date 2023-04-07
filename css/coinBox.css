@@ -127,6 +127,12 @@
     /* cursor: grab; */
 }
 
+.cash-register {
+    content: url("../art/coinBox/cash-register.png");
+    width: 4rem;
+    height: auto;
+}
+
 .quarter {
     content: url("../art/coinBox/quarter.png");
     width: 4rem;

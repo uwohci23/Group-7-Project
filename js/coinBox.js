@@ -9,6 +9,7 @@ class CoinBox extends React.Component {
             coins: [],
             coinPositions: [],
             floorboxCoins: [],
+            floorboxValue: 0,
             count: 0,
             total: 0,
             win: false,
@@ -26,10 +27,15 @@ class CoinBox extends React.Component {
         this.handleAnswer = this.handleAnswer.bind(this);
         this.handleCloseWinPopup = this.handleCloseWinPopup.bind(this);
 
-        this.spawnCoin = this.spawnCoin.bind(this);
+        this.spawnCoins = this.spawnCoin.bind(this);
+        this.despawnCoins = this.despawnCoins.bind(this);
 
 
         this.toggleTooltips = this.toggleTooltips.bind(this);
+
+        this.exchangeCoins = this.exchangeCoins.bind(this);
+
+        this.despawn2 = this.despawn2.bind(this);
     }
 
     // TODO: Make closing the WIN and LOSE popups nicer on esc and enter
@@ -233,6 +239,7 @@ class CoinBox extends React.Component {
         });
         $("#floor").tooltip();
         $("#floorbox").tooltip();
+        $("#exchanger").tooltip();
 
     }
 
@@ -248,6 +255,7 @@ class CoinBox extends React.Component {
             $(".coin").tooltip("enable");
             $("#floor").tooltip("enable");
             $("#floorbox").tooltip("enable");
+            $("#exchanger").tooltip("enable");
             console.log("ENABLED!")
         } else {
             $("#answer").tooltip("disable");
@@ -255,6 +263,7 @@ class CoinBox extends React.Component {
             $(".coin").tooltip("disable");
             $("#floor").tooltip("disable");
             $("#floorbox").tooltip("disable");
+            $("#exchanger").tooltip("disable");
             console.log("DISABLED!")
         }
     }
@@ -339,6 +348,7 @@ class CoinBox extends React.Component {
 
     handleCoinDrop(index) {
         const coin = document.getElementById("coin" + index);
+        const coinValue = parseInt(coin.getAttribute("dollarValue"));
         const coinRect = coin.getBoundingClientRect();
 
         console.log(`${coinRect.x}, ${coinRect.y}`)
@@ -353,25 +363,28 @@ class CoinBox extends React.Component {
         const rect = fromFloorBox.getBoundingClientRect();
         console.log(rect.x, rect.y);
         if (coinRect.x > rect.left && coinRect.x < rect.right && coinRect.y > rect.top && coinRect.y < rect.bottom) {
-            fromFloorBox.innerHTML = `Coin ${index} here!`;
+            //fromFloorBox.innerHTML = `Coin ${index} here!`;
             if (!this.state.floorboxCoins.includes(index)) {
                 this.setState(prevState => ({
-                    floorboxCoins: [...prevState.floorboxCoins, index]
+                    floorboxCoins: [...prevState.floorboxCoins, index],
+                    floorboxValue: prevState.floorboxValue + coinValue
                 }));
             }
         } else {
-            fromFloorBox.innerHTML = "nothing";
+            //fromFloorBox.innerHTML = "nothing";
             if (this.state.floorboxCoins.includes(index)) {
                 this.setState({
                     floorboxCoins: this.state.floorboxCoins.filter((coin) => {
                         return coin !== index;
-                    })
+                    }),
+                    floorboxValue: this.state.floorboxValue - coinValue
                 });
             }
         }
     }
 
-    spawnCoin() {
+    spawnCoin(dollarValue, numberOfCoins) {
+        console.log("SPAWNING A COIN");
         // Setting id as length is same as adding new coin 
         let id = this.state.coins.length;
 
@@ -379,25 +392,20 @@ class CoinBox extends React.Component {
             coins: [...this.state.coins, id]
         });
 
-        // Generate random coin
-        let randomizeCoin = Math.floor(Math.random() * (4 - 1 + 1) + 1);
-        let randomCoin = "";
-        let dollarValue = "";
-        if (randomizeCoin === 4) {
-            randomCoin = "quarter";
-            dollarValue = "25";
-        } else if (randomizeCoin === 3) {
-            randomCoin = "dime";
-            dollarValue = "10";
-        } else if (randomizeCoin === 2) {
-            randomCoin = "nickel";
-            dollarValue = "5";
+        // Generate coin with value
+        let coin = "";
+
+        if (dollarValue === 25) {
+            coin = "quarter";
+        } else if (dollarValue === 10) {
+            coin = "dime";
+        } else if (dollarValue === 5) {
+            coin = "nickel";
         } else {
-            randomCoin = "penny";
-            dollarValue = "1";
+            coin = "penny";
         }
 
-        let floor = this.floorDiv;
+        let floor = this.floorboxDiv;
         let width = floor.offsetWidth - 20;
         let height = floor.offsetHeight - 20;
 
@@ -406,8 +414,17 @@ class CoinBox extends React.Component {
 
         // makes the coin with that id draggable
         $(function () {
-            $("#" + "coin" + id).draggable();
-            $("#" + "coin" + id).addClass(randomCoin);
+            $("#" + "coin" + id).mouseover(
+                function () {
+                    $(this).css("cursor", "grab");
+                },
+
+            );
+            $("#" + "coin" + id).draggable({
+                cursor: "grabbing",
+                containment: "#playable-area"
+            });
+            $("#" + "coin" + id).addClass(coin);
             $("#" + "coin" + id).attr("dollarValue", dollarValue);
             $("#" + "coin" + id).attr("title", dollarValue);
 
@@ -418,13 +435,38 @@ class CoinBox extends React.Component {
         });
 
         this.setState({
+            coins: [...this.state.coins, id],
+            floorboxCoins: [...this.state.floorboxCoins, id],
             coinPositions: [...this.state.coinPositions, [[(height - randHeight), (width - randWidth)]]]
         });
     }
 
-    despawnCoin() {
+    despawnCoins() {
+        /* const deleter = document.getElementById("deleter");
+        const index = parseInt(deleter.value); */
+        console.log("DESPAWNING");
+
+        this.setState({
+            coins: this.state.coins.filter((coin) => {
+                return !this.state.floorboxCoins.includes(coin);
+            }),
+
+            floorboxCoins: [],
+
+            // maybe uncessary because positions of coins can be retrieved at any time
+            /* coinPositions: this.state.coinPositions.filter((_, index) => {
+                return this.state.floorboxCoins.includes(coin);
+            }) */
+        });
+    }
+
+    despawn2() {
+        console.log("SECOND DESPAWNER");
         const deleter = document.getElementById("deleter");
         const index = parseInt(deleter.value);
+
+        const coin = document.getElementById("coin" + index);
+        $("coin" + index).remove();
 
         if (this.state.coins.includes(index)) {
             this.setState({
@@ -432,16 +474,51 @@ class CoinBox extends React.Component {
                     return coin !== index;
                 })
             });
-
-            this.setState({
-                coinPositions: this.state.coinPositions.filter((_, i) => {
-                    return i !== index;
-                })
-            });
         }
+
     }
 
+
+
     exchangeCoins() {
+        const quarters = document.getElementById("exchange-quarters").value;
+        const dimes = document.getElementById("exchange-dimes").value;
+        const nickels = document.getElementById("exchange-nickels").value;
+        const pennies = document.getElementById("exchange-pennies").value;
+
+        const total = (quarters * 25) + (dimes * 10) + (nickels * 5) + (pennies * 1);
+
+        console.log("FLOOR VALUE: ", this.state.floorboxValue, "TOTAL: ", total);
+
+        if (this.state.floorboxValue === total) {
+            console.log("good coins")
+            // exchange coins
+            this.despawnCoins();
+            
+            /* if (quarters !== 0) {
+                this.spawnCoin(25, quarters);
+                console.log("SPAWNING QUARTERS");
+            }
+            
+            if (dimes !== 0) {
+                this.spawnCoin(10, dimes);
+                console.log("SPAWNING DIMES: ");
+            }
+
+            if (nickels !== 0) {
+                this.spawnCoin(5, nickels);
+                console.log("SPAWNING NICKELS: ");
+            }
+
+            if (pennies !== 0) {
+                this.spawnCoin(1, pennies);
+                console.log("SPAWNING PENNIES: ");
+            } */
+
+        } else {
+            console.log("bad coins")
+            // throw an error with a popup explaining why coins couldn't be exchanged
+        }
 
     }
 
@@ -479,43 +556,54 @@ class CoinBox extends React.Component {
                                 />
                                 <span className="slider round"></span>
                             </label>
-
-                            <button onClick={this.spawnCoin}>Spawn coin</button>
-                            <input id="deleter" placeholder="Delete something"></input>
-                            <button onClick={() => { this.despawnCoin() }}>Despawn coin</button>
+                            
+                            <input id="deleter" placeholder="delete something"></input>
+                            <button onClick={this.despawn2}>Button</button>
 
                         </div>
 
                         <div id="playable-area" className="playable-area">
                             <div className="from-floor-area">Exchange coins from floor
                                 <div id="floorbox" className="a-coin-box" data-coin="" title="Put the coins you want to exchange over here!">
-                                    <p>thing</p>
+                                    {/* {this.state.floorboxCoins.map((coin, index) => {
+                                        console.log("coin" + coin.toString());
+                                        return (
+                                            <div
+                                                key={index}
+                                                id={"coin" + coin.toString()}
+                                                className="coin"
+                                                onMouseUp={() => { this.handleCoinDrop(index) }}
+                                            >
+                                            </div>
+                                        );
+                                    })} */}
                                 </div>
                             </div>
 
-                            <div className="from-bank-area">Exchange coins from bank
-                                <button id="exchange-coins">Exhange coins</button>
-                                <div class="exchange-container">
-                                    <div class="exchange-banner">Exchange Coins</div>
+                            <div className="from-bank-area" ref={(div) => { this.floorboxDiv = div; }}>Exchange coins from bank
+                                <image className="cash-register"></image>
+                                <button id="exchange-coins" onClick={this.exchangeCoins} >Exhange coins</button>
+                                <div id="exchanger" className="exchange-container" title={`Choose a number of coins then press the exchange button`}>
+                                    <div className="exchange-banner">Exchange Coins</div>
 
-                                    <div class="exchange-card">
+                                    <div className="exchange-card">
                                         <h3>Quarters</h3>
-                                        <input type="number" />
+                                        <input id="exchange-quarters" type="number" />
                                     </div>
 
-                                    <div class="exchange-card">
+                                    <div className="exchange-card">
                                         <h3>Dimes</h3>
-                                        <input type="number" />
+                                        <input id="exchange-dimes" type="number" />
                                     </div>
 
-                                    <div class="exchange-card">
+                                    <div className="exchange-card">
                                         <h3>Nickels</h3>
-                                        <input type="number" />
+                                        <input id="exchange-nickels" type="number" />
                                     </div>
 
-                                    <div class="exchange-card">
+                                    <div className="exchange-card">
                                         <h3>Pennies</h3>
-                                        <input type="number" />
+                                        <input id="exchange-pennies" type="number" />
                                     </div>
 
 
