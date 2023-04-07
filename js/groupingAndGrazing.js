@@ -8,7 +8,7 @@ class GroupingAndGrazing extends React.Component {
     }
 
     restart() {
-        document.getElementById("Grouping and Grazing").src = "Group-7-Project//games/GroupingAndGrazing/Build/index.html";
+        document.getElementById("Grouping and Grazing").src = "Group-7-Project/games/GroupingAndGrazing/Build/index.html";
     }
 
     render() {
@@ -16,10 +16,10 @@ class GroupingAndGrazing extends React.Component {
         console.log(this.props.isTutorial)
         switch (this.props.isTutorial) {
             case false:
-                framer = <iframe id="Grouping and Grazing" src="Group-7-Project//games/GroupingAndGrazing/Build/index.html" style={{ width: "100vw", height: "100vh" }}></iframe>
+                framer = <iframe id="Grouping and Grazing" src="Group-7-Project/games/GroupingAndGrazing/Build/index.html" style={{ width: "100vw", height: "100vh" }}></iframe>
                 break;
             case true:
-                framer = <iframe id="Grouping and Grazing" src="Group-7-Project//games/GroupingAndGrazing/TutorialBuild/index.html" style={{ width: "100vw", height: "100vh" }}></iframe>
+                framer = <iframe id="Grouping and Grazing" src="Group-7-Project/games/GroupingAndGrazing/TutorialBuild/index.html" style={{ width: "100vw", height: "100vh" }}></iframe>
                 break;
         }
         return (

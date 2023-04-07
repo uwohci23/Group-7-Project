@@ -8,7 +8,7 @@ class DeepSeaDuel extends React.Component {
     restart() {
         // this is for testing
         // it currently uses grazing iframe but it should use duel iframe
-        document.getElementById("Deep Sea Duel").src = "Group-7-Project//games/DeepSeaDuel/Build/index.html";
+        document.getElementById("Deep Sea Duel").src = "Group-7-Project/games/DeepSeaDuel/Build/index.html";
     }
 
     //added logical choice between two iframes, one containing the tutorial and on that does not.
@@ -16,10 +16,10 @@ class DeepSeaDuel extends React.Component {
         let framer
         switch (this.props.isTutorial) {
             case false:
-                framer = <iframe id="Deep Sea Duel" src="Group-7-Project//games/DeepSeaDuel/Build/index.html" style={{ width: "100vw", height: "100vh" }}></iframe>
+                framer = <iframe id="Deep Sea Duel" src="Group-7-Project/games/DeepSeaDuel/Build/index.html" style={{ width: "100vw", height: "100vh" }}></iframe>
                 break;
             case true:
-                framer = <iframe id="Deep Sea Duel" src="Group-7-Project//games/DeepSeaDuel/TutorialBuild/index.html" style={{ width: "100vw", height: "100vh" }}></iframe>
+                framer = <iframe id="Deep Sea Duel" src="Group-7-Project/games/DeepSeaDuel/TutorialBuild/index.html" style={{ width: "100vw", height: "100vh" }}></iframe>
                 break;
         }
         return (
