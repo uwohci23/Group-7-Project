@@ -567,8 +567,8 @@ class CoinBox extends React.Component {
                                 Drop coins into the left box. Then choose how many coins you want to exchange using the table. Then click exchange to replace the coins in the box with the coins you chose in the table. </p>
                                 <button onClick={this.handleCloseInstructions}>OK</button>
                             </dialog>
-
-                            <label className="switch1">
+                            
+                            {/* <label className="switch1">Slider
                                 <input type="checkbox" id="toggle"
                                     onChange={
                                         () => {
@@ -581,7 +581,7 @@ class CoinBox extends React.Component {
                                     checked={this.state.tooltipsOn}
                                 />
                                 <span className="slider1 round1"></span>
-                            </label>
+                            </label> */}
 
                             {/* <input id="deleter" placeholder="delete something"></input>
                             <button onClick={this.despawn2}>Button</button> */}
